@@ -1,0 +1,1764 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta name="googlebot" content="noindex, nofollow">
+<meta name="yandex" content="noindex, nofollow">
+<title>Welcome Book — Грильница</title>
+<style>
+/* ═══ PASSWORD GATE STYLES ═══ */
+#access-gate {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #1C1008 0%, #4A2808 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  font-family: 'Nunito', -apple-system, sans-serif;
+}
+#access-gate.unlocked {
+  display: none;
+}
+.gate-card {
+  background: rgba(255,255,255,0.95);
+  padding: 48px 40px;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+}
+.gate-logo {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+.gate-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1C1008;
+  margin-bottom: 8px;
+}
+.gate-subtitle {
+  font-size: 14px;
+  color: #8C5E3C;
+  margin-bottom: 32px;
+}
+.gate-input {
+  width: 100%;
+  padding: 16px 20px;
+  border: 2px solid #E8530A;
+  border-radius: 12px;
+  font-size: 16px;
+  font-family: inherit;
+  outline: none;
+  transition: all 0.2s;
+  margin-bottom: 12px;
+  box-sizing: border-box;
+}
+.gate-input:focus {
+  border-color: #B03D05;
+  box-shadow: 0 0 0 4px rgba(232,83,10,0.1);
+}
+.gate-btn {
+  width: 100%;
+  padding: 16px;
+  background: #E8530A;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.gate-btn:hover {
+  background: #B03D05;
+  transform: translateY(-1px);
+}
+.gate-btn:active {
+  transform: translateY(0);
+}
+.gate-error {
+  color: #dc2626;
+  font-size: 13px;
+  margin-top: 8px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.gate-error.show {
+  opacity: 1;
+}
+#welcomebook-content {
+  display: none;
+}
+#welcomebook-content.unlocked {
+  display: block;
+}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ═══ PASSWORD GATE ═══ -->
+<div id="access-gate">
+  <div class="gate-card">
+    <div class="gate-logo">🔐</div>
+    <div class="gate-title">Доступ ограничен</div>
+    <div class="gate-subtitle">Введите пароль для просмотра Welcome Book</div>
+    <input
+      type="password"
+      id="pwd-input"
+      class="gate-input"
+      placeholder="Введите пароль"
+      autocomplete="off"
+    >
+    <button onclick="checkPassword()" class="gate-btn">Войти</button>
+    <div id="error-msg" class="gate-error">Неверный пароль. Попробуйте снова.</div>
+  </div>
+</div>
+
+<!-- ═══ PROTECTED CONTENT ═══ -->
+<div id="welcomebook-content">
+<!-- ORIGINAL WELCOME BOOK CONTENT STARTS HERE -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --orange: #E8530A;
+  --orange-dark: #B03D05;
+  --orange-light: #F47A3A;
+  --orange-pale: #FFF0E8;
+  --cream: #FFF8F3;
+  --charcoal: #1C1008;
+  --brown: #4A2808;
+  --text-muted: #8C5E3C;
+  --radius: 20px;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Nunito', sans-serif;
+  background: var(--charcoal);
+  overflow: hidden;
+}
+
+/* ── BOOK WRAPPER ── */
+.book-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+/* ── PAGES ── */
+.page {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  transition: transform 0.45s cubic-bezier(0.77,0,0.175,1), opacity 0.45s;
+  will-change: transform, opacity;
+}
+.page.active      { transform: translateX(0);     opacity: 1; pointer-events: all; }
+.page.slide-left  { transform: translateX(-100%); opacity: 0; pointer-events: none; }
+.page.slide-right { transform: translateX(100%);  opacity: 0; pointer-events: none; }
+
+/* ── PROGRESS DOTS ── */
+.dots {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 200;
+}
+.dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.35);
+  transition: background 0.3s, transform 0.3s;
+}
+.dot.active { background: #fff; transform: scale(1.5); }
+
+/* ── MOBILE NAV (bottom) ── */
+.nav-mobile {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 24px 28px;
+  z-index: 200;
+  background: linear-gradient(to top, rgba(28,16,8,0.2) 0%, transparent 100%);
+}
+.nav-btn {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  font-size: 22px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.92);
+  color: var(--orange-dark);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  transition: transform 0.2s, opacity 0.2s;
+}
+.nav-btn:active { transform: scale(0.93); }
+.nav-btn:disabled { opacity: 0.25; pointer-events: none; }
+.page-counter {
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 0.08em;
+}
+
+/* ── SIDE NAV (tablet/desktop) – hidden by default ── */
+.nav-side {
+  display: none;
+}
+
+/* ─────────────────────────────────────────────────────
+   MOBILE-ONLY PAGE STYLES
+───────────────────────────────────────────────────── */
+
+/* ── Shared section layout (mobile) ── */
+.section-header {
+  padding: 52px 28px 24px;
+}
+.section-label {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 8px;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 34px;
+  font-weight: 900;
+  color: var(--charcoal);
+  line-height: 1.1;
+}
+.section-body {
+  padding: 0 28px 100px;
+  flex: 1;
+}
+.accent-bar {
+  width: 40px; height: 4px;
+  background: var(--orange);
+  border-radius: 4px;
+  margin: 14px 0 20px;
+}
+
+/* ── PAGE 0: COVER (mobile) ── */
+#p0 {
+  background: var(--orange);
+  background-image:
+    radial-gradient(ellipse at 20% 80%, #B03D05 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 10%, #FF8C42 0%, transparent 55%);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+.cover-decor {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+  pointer-events: none;
+}
+.cover-decor.d1 { width: 320px; height: 320px; top: -80px; right: -80px; }
+.cover-decor.d2 { width: 200px; height: 200px; bottom: 60px; left: -60px; }
+.cover-decor.d3 { width: 90px;  height: 90px;  bottom: 200px; right: 30px; }
+.cover-flame {
+  font-size: 72px;
+  margin-bottom: 20px;
+  animation: flamePulse 2s ease-in-out infinite;
+  position: relative; z-index: 1;
+}
+@keyframes flamePulse {
+  0%,100% { transform: scale(1) rotate(-3deg); }
+  50%      { transform: scale(1.08) rotate(3deg); }
+}
+.cover-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 48px;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  text-shadow: 0 4px 24px rgba(0,0,0,0.2);
+  position: relative; z-index: 1;
+}
+.cover-tagline {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.75);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-top: 10px;
+  position: relative; z-index: 1;
+}
+.cover-divider {
+  width: 60px; height: 2px;
+  background: rgba(255,255,255,0.4);
+  border-radius: 2px;
+  margin: 28px auto;
+  position: relative; z-index: 1;
+}
+.cover-subtitle {
+  font-size: 22px;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.3;
+  position: relative; z-index: 1;
+}
+.cover-sub2 {
+  font-size: 14px;
+  color: rgba(255,255,255,0.7);
+  margin-top: 8px;
+  font-weight: 600;
+  position: relative; z-index: 1;
+}
+.cover-badge {
+  margin-top: 36px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 50px;
+  padding: 10px 20px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  position: relative; z-index: 1;
+}
+
+/* ── PAGE 1: О НАС ── */
+#p1 { background: var(--cream); }
+.p1-hero-strip { height: 8px; background: var(--orange); flex-shrink: 0; }
+.stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.stat-card {
+  background: #fff;
+  border: 1px solid rgba(232,83,10,0.12);
+  border-radius: 16px;
+  padding: 18px 16px;
+  text-align: center;
+}
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--orange);
+  line-height: 1;
+}
+.stat-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-top: 6px;
+  line-height: 1.3;
+}
+.stat-card.full { grid-column: 1 / -1; background: var(--orange); }
+.stat-card.full .stat-num { color: #fff; font-size: 20px; }
+.stat-card.full .stat-label { color: rgba(255,255,255,0.8); }
+.info-block {
+  background: #fff;
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 12px;
+  border-left: 4px solid var(--orange);
+}
+.info-block p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #3A2010;
+}
+.link-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--orange);
+  color: #fff;
+  border-radius: 14px;
+  padding: 16px 20px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  margin-top: 8px;
+}
+.link-btn span { flex: 1; }
+.link-btn .arrow { font-size: 18px; }
+
+/* ── PAGE 2: МИССИЯ ── */
+#p2 {
+  background: var(--charcoal);
+  background-image:
+    radial-gradient(ellipse at 90% 10%, rgba(232,83,10,0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 10% 90%, rgba(180,60,5,0.25) 0%, transparent 50%);
+}
+#p2 .section-label { color: var(--orange-light); }
+#p2 .section-title { color: #fff; }
+.mission-quote {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 18px;
+  padding: 22px;
+  margin-bottom: 20px;
+}
+.mission-quote .q-mark {
+  font-family: 'Playfair Display', serif;
+  font-size: 52px;
+  line-height: 0.7;
+  color: var(--orange);
+  display: block;
+  margin-bottom: 12px;
+}
+.mission-quote p {
+  font-size: 15px;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.88);
+  font-style: italic;
+  font-weight: 600;
+}
+.goal-item {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 16px;
+  align-items: flex-start;
+}
+.goal-icon {
+  width: 42px; height: 42px; flex-shrink: 0;
+  border-radius: 12px;
+  background: var(--orange);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+}
+.goal-title {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--orange-light);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+}
+.goal-desc {
+  font-size: 13px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.55;
+}
+
+/* ── PAGE 3: ЦЕННОСТИ ── */
+#p3 { background: var(--cream); }
+.korrghop-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--orange);
+  color: #fff;
+  border-radius: 50px;
+  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  margin-bottom: 20px;
+}
+.value-card {
+  background: #fff;
+  border-radius: 18px;
+  overflow: hidden;
+  margin-bottom: 12px;
+  border: 1px solid rgba(232,83,10,0.1);
+}
+.value-card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  cursor: pointer;
+  user-select: none;
+}
+.value-emoji { font-size: 26px; }
+.value-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--charcoal);
+  flex: 1;
+}
+.value-tagline { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+.value-chevron {
+  font-size: 18px;
+  color: var(--orange);
+  transition: transform 0.3s;
+}
+.value-card.open .value-chevron { transform: rotate(180deg); }
+.value-body { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+.value-card.open .value-body { max-height: 300px; }
+.value-body-inner {
+  padding: 14px 16px 16px;
+  border-top: 1px solid rgba(232,83,10,0.1);
+}
+.role-row { display: flex; gap: 8px; margin-bottom: 8px; align-items: flex-start; }
+.role-tag {
+  font-size: 10px; font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--orange-dark);
+  background: var(--orange-pale);
+  border-radius: 6px;
+  padding: 3px 8px;
+  white-space: nowrap; flex-shrink: 0;
+  margin-top: 2px;
+}
+.role-text { font-size: 13px; color: #4A2808; line-height: 1.5; }
+
+/* ── PAGE 4: КОМАНДА ── */
+#p4 {
+  background: var(--orange);
+  background-image: radial-gradient(ellipse at 30% 70%, #B03D05 0%, transparent 60%);
+}
+#p4 .section-label { color: rgba(255,255,255,0.6); }
+#p4 .section-title { color: #fff; }
+#p4 .accent-bar { background: rgba(255,255,255,0.5); }
+.team-placeholder {
+  background: rgba(255,255,255,0.1);
+  border: 2px dashed rgba(255,255,255,0.35);
+  border-radius: 20px;
+  padding: 28px 20px;
+  text-align: center;
+  margin-bottom: 14px;
+}
+.team-placeholder .ph-icon { font-size: 44px; margin-bottom: 10px; }
+.team-placeholder p { font-size: 14px; color: rgba(255,255,255,0.75); line-height: 1.6; }
+.team-placeholder strong { color: #fff; }
+.team-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+.team-tag {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 50px;
+  padding: 8px 16px;
+  font-size: 13px;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ── PAGE 5: СТАРОЖИЛЫ ── */
+#p5 { background: var(--cream); }
+.veteran-placeholder {
+  background: #fff;
+  border-radius: 20px;
+  border: 2px dashed rgba(232,83,10,0.3);
+  padding: 24px 20px;
+  text-align: center;
+  margin-bottom: 14px;
+}
+.veteran-placeholder .ph-icon { font-size: 44px; margin-bottom: 10px; }
+.veteran-placeholder p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+.veteran-placeholder strong { color: var(--orange-dark); }
+.veteran-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+.veteran-chip {
+  background: var(--orange-pale);
+  border: 1px solid rgba(232,83,10,0.2);
+  border-radius: 50px;
+  padding: 7px 14px;
+  font-size: 12px;
+  color: var(--orange-dark);
+  font-weight: 700;
+}
+
+/* ── PAGE 6: БОНУСЫ ── */
+#p6 {
+  background: var(--charcoal);
+}
+#p6 .section-title { color: #fff; }
+#p6 .section-label { color: var(--orange-light); }
+.benefit-list {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-bottom: 18px;
+}
+.benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 12px 14px;
+}
+.benefit-icon { font-size: 22px; width: 36px; text-align: center; flex-shrink: 0; }
+.benefit-text { font-size: 13px; color: rgba(255,255,255,0.88); font-weight: 600; line-height: 1.3; }
+.benefit-text small {
+  display: block;
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  font-weight: 400;
+  margin-top: 2px;
+}
+.tg-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #229ED9;
+  color: #fff;
+  border-radius: 16px;
+  padding: 16px 22px;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 800;
+  margin-top: 8px;
+}
+.tg-icon { font-size: 24px; }
+
+/* ── PAGE 7: WELCOME ── */
+#p7 {
+  background: var(--orange);
+  background-image:
+    radial-gradient(ellipse at 10% 20%, rgba(255,140,66,0.5) 0%, transparent 50%),
+    radial-gradient(ellipse at 90% 80%, #B03D05 0%, transparent 55%);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 28px 100px;
+}
+.welcome-star { font-size: 56px; animation: spin 6s linear infinite; display: block; margin-bottom: 14px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.welcome-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 34px;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.15;
+  margin-bottom: 10px;
+}
+.welcome-sub {
+  font-size: 16px;
+  color: rgba(255,255,255,0.78);
+  font-style: italic;
+  font-weight: 600;
+  margin-bottom: 28px;
+}
+.qr-block {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 22px;
+  padding: 22px;
+  margin-bottom: 20px;
+}
+.qr-label {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 12px;
+}
+#qrcode { display: inline-block; background: #fff; padding: 10px; border-radius: 12px; }
+#qrcode canvas, #qrcode img { display: block; border-radius: 6px; }
+.qr-url { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 10px; font-style: italic; word-break: break-all; }
+.hr-contact {
+  background: rgba(0,0,0,0.2);
+  border-radius: 16px;
+  padding: 16px 20px;
+  margin-bottom: 14px;
+  width: 100%;
+}
+.hr-contact p { color: rgba(255,255,255,0.65); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+.hr-contact a { color: #fff; font-size: 18px; font-weight: 900; text-decoration: none; display: block; }
+.hr-contact span { color: rgba(255,255,255,0.7); font-size: 12px; }
+
+
+/* ── MOBILE LAYOUT FOR NEW WRAPPER DIVS ── */
+
+/* Cover: on mobile .cover-brand is centered, .cover-deco-panel hidden */
+.cover-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative; z-index: 1;
+  padding: 0 28px;
+}
+.cover-deco-panel { display: none; }
+
+/* p1: stack columns vertically on mobile */
+#p1 { flex-direction: column; }
+.p1-left, .p1-right { flex: none; width: 100%; }
+.p1-left { padding: 48px 28px 0; }
+.p1-right { padding: 0 28px 100px; }
+/* On mobile, hide the desktop link btn and show the one in p1-left */
+#linkBtnDesktop { display: none !important; }
+
+/* "Кто мы" — крупный заголовок на мобильном */
+#p1 .section-label {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  font-weight: 900;
+  text-transform: none;
+  letter-spacing: -0.01em;
+  color: var(--charcoal);
+  line-height: 1;
+  margin-bottom: 0;
+}
+
+/* p2: stack columns vertically on mobile */
+#p2 { flex-direction: column; }
+.p2-left, .p2-right { flex: none; width: 100%; }
+.p2-left { padding: 0; }
+.p2-right { padding: 0; }
+
+/* p4: stack columns vertically on mobile */
+#p4 { flex-direction: column; }
+.p4-left, .p4-right { flex: none; width: 100%; }
+.p4-left { padding: 0; }
+.p4-right { padding: 0 28px 100px; }
+
+/* p7: stack vertically on mobile */
+#p7 { flex-direction: column; justify-content: center; text-align: center; padding: 40px 28px 100px; }
+.p7-left, .p7-right { flex: none; width: 100%; }
+.p7-left { align-items: center; padding: 0; }
+.p7-right { padding: 0; background: none; gap: 16px; }
+
+/* veterans: grid hidden, sidebar shown on mobile */
+.veterans-grid { display: none; }
+.veterans-sidebar { display: block; }
+
+/* values: grid hidden on mobile, accordion list shown */
+.values-grid { display: none; }
+.values-list-mobile { display: block; }
+
+
+/* ─────────────────────────────────────────────────────────────
+   TABLET: 768px+
+───────────────────────────────────────────────────────────── */
+@media (min-width: 768px) {
+  html, body { overflow: hidden; }
+
+  /* Hide mobile nav, show side nav */
+  .nav-mobile { display: none; }
+  .dots {
+    top: auto;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .dot { width: 8px; height: 8px; }
+
+  .nav-side {
+    display: flex;
+    position: fixed;
+    top: 0; bottom: 0;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 28px;
+    pointer-events: none;
+    z-index: 200;
+  }
+  .nav-side-btn {
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    font-size: 26px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(255,255,255,0.9);
+    color: var(--orange-dark);
+    box-shadow: 0 6px 28px rgba(0,0,0,0.2);
+    transition: transform 0.2s, opacity 0.2s, background 0.2s;
+    pointer-events: all;
+    backdrop-filter: blur(4px);
+  }
+  .nav-side-btn:hover { background: #fff; transform: scale(1.08); }
+  .nav-side-btn:active { transform: scale(0.95); }
+  .nav-side-btn:disabled { opacity: 0.2; pointer-events: none; }
+
+  /* Tablet: pages scroll within slide */
+  .page { overflow-y: auto; }
+
+  /* Shared header adjustments */
+  .section-header { padding: 60px 48px 28px; }
+  .section-body { padding: 0 48px 80px; }
+  .section-title { font-size: 42px; }
+
+  /* Cover on tablet: still centered */
+  .cover-brand { padding: 0 48px; }
+  #p0 .cover-flame { font-size: 80px; }
+  #p0 .cover-logo { font-size: 58px; }
+  #p0 .cover-subtitle { font-size: 26px; }
+
+  /* Page 7 on tablet: centered */
+  #p7 { padding: 60px 48px 80px; }
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   DESKTOP: 1024px+  — Presentation mode
+───────────────────────────────────────────────────────────── */
+@media (min-width: 1024px) {
+
+  .nav-side { padding: 0 52px; }
+  .nav-side-btn { width: 72px; height: 72px; font-size: 28px; box-shadow: 0 8px 32px rgba(0,0,0,0.25); }
+
+  /* All pages: full-screen, no scroll, row layout by default */
+  .page { overflow: hidden; flex-direction: row; }
+
+  /* Show desktop, hide mobile versions */
+  .values-grid { display: grid; }
+  .values-list-mobile { display: none; }
+  .veterans-grid { display: grid; }
+  .veterans-sidebar { display: none; }
+  .cover-deco-panel { display: flex; }
+
+  /* ── PAGE 0: COVER ── */
+  #p0 { flex-direction: row; align-items: stretch; text-align: left; }
+  .cover-brand {
+    flex: 0 0 58%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 72px 80px;
+    position: relative; z-index: 1;
+  }
+  .cover-deco-panel {
+    flex: 1;
+    background: var(--charcoal);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 60px 48px;
+    position: relative; z-index: 1;
+  }
+  #p0 .cover-flame { font-size: 72px; margin-bottom: 16px; }
+  #p0 .cover-logo { font-size: clamp(60px, 5.5vw, 88px); }
+  #p0 .cover-tagline { font-size: 13px; margin-top: 14px; letter-spacing: 0.24em; }
+  #p0 .cover-divider { margin: 40px 0; width: 80px; }
+  #p0 .cover-subtitle { font-size: clamp(24px, 2.2vw, 34px); }
+  #p0 .cover-sub2 { font-size: 16px; margin-top: 10px; }
+  #p0 .cover-badge { margin-top: 48px; font-size: 14px; padding: 12px 24px; }
+
+  .cover-stat-deco {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 20px;
+    padding: 28px 36px;
+    text-align: center;
+    width: 100%;
+    max-width: 260px;
+  }
+  .cover-stat-deco .s-num {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(60px, 6vw, 84px);
+    font-weight: 900;
+    color: var(--orange-light);
+    line-height: 1;
+  }
+  .cover-stat-deco .s-label {
+    font-size: 13px;
+    color: rgba(255,255,255,0.55);
+    font-weight: 600;
+    margin-top: 8px;
+    line-height: 1.4;
+  }
+  .cover-award-deco {
+    background: var(--orange);
+    border-radius: 16px;
+    padding: 18px 24px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+    max-width: 260px;
+    width: 100%;
+    line-height: 1.5;
+  }
+
+  /* ── PAGE 1: О НАС — "КТО МЫ" как большой заголовок ── */
+  #p1 { flex-direction: row; align-items: stretch; }
+  #p1 .p1-hero-strip { display: none; }
+
+  .p1-left {
+    flex: 0 0 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 72px 80px;
+    border-right: 1px solid rgba(232,83,10,0.12);
+  }
+  /* "Кто мы" — главный заголовок страницы */
+  .p1-left .section-label {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 5.2vw, 76px);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    text-transform: none;
+    color: var(--charcoal);
+    line-height: 1;
+    margin-bottom: 0;
+  }
+  .p1-left .accent-bar { width: 72px; height: 5px; margin: 28px 0 32px; }
+  .p1-left .info-block { border-radius: 14px; padding: 18px 22px; margin-bottom: 14px; }
+  .p1-left .info-block p { font-size: 15px; line-height: 1.75; }
+  .p1-left .link-btn { display: none; }
+
+  .p1-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 72px 64px;
+    gap: 16px;
+  }
+  #p1 .stat-grid { gap: 16px; margin-bottom: 0; }
+  #p1 .stat-card { border-radius: 20px; padding: 28px 20px; }
+  #p1 .stat-num { font-size: clamp(52px, 5.5vw, 72px); }
+  #p1 .stat-label { font-size: 14px; margin-top: 8px; }
+  #p1 .stat-card.full { padding: 20px 24px; }
+  #p1 .stat-card.full .stat-num { font-size: 16px; }
+  #linkBtnDesktop { display: flex !important; font-size: 15px; padding: 18px 22px; border-radius: 16px; margin-top: 4px; }
+
+  /* ── PAGE 2: МИССИЯ ── */
+  #p2 { flex-direction: row; align-items: stretch; }
+  .p2-left {
+    flex: 0 0 52%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 72px 80px;
+    border-right: 1px solid rgba(255,255,255,0.08);
+  }
+  .p2-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 72px 64px;
+  }
+  #p2 .section-header { padding: 0 0 32px; }
+  #p2 .section-label { font-size: 12px; margin-bottom: 14px; }
+  #p2 .section-title { font-size: clamp(44px, 4.5vw, 62px); line-height: 1.05; }
+  /* Цитата без рамки — большой жирный курсив с акцентом слева */
+  #p2 .mission-quote {
+    background: none;
+    border: none;
+    border-left: 4px solid var(--orange);
+    border-radius: 0;
+    padding: 4px 0 4px 28px;
+    margin-bottom: 0;
+  }
+  #p2 .mission-quote .q-mark { font-size: 80px; color: var(--orange); margin-bottom: 6px; }
+  #p2 .mission-quote p {
+    font-size: clamp(17px, 1.6vw, 22px);
+    line-height: 1.65;
+    color: rgba(255,255,255,0.92);
+    font-style: italic;
+    font-weight: 700;
+  }
+  /* Левая: section-body не растягивается — justify-content: center на p2-left работает */
+  .p2-left > .section-body { flex: none; padding: 0; }
+  /* Правая: section-body заполняет высоту и распределяет цели равномерно */
+  .p2-right > .section-body { flex: 1; display: flex; flex-direction: column; justify-content: space-evenly; padding: 0; }
+  #p2 .goal-item { margin-bottom: 0; gap: 18px; }
+  #p2 .goal-icon { width: 54px; height: 54px; font-size: 26px; border-radius: 16px; flex-shrink: 0; }
+  #p2 .goal-title { font-size: 13px; margin-bottom: 6px; }
+  #p2 .goal-desc { font-size: 15px; line-height: 1.6; color: rgba(255,255,255,0.75); }
+
+  /* ── PAGE 3: ЦЕННОСТИ ── */
+  #p3 { flex-direction: column; align-items: stretch; justify-content: center; overflow: hidden; }
+  #p3 .section-header {
+    padding: 0 64px 28px;
+    display: flex;
+    align-items: flex-end;
+    gap: 24px;
+    flex-shrink: 0;
+  }
+  #p3 .section-label { font-size: 12px; }
+  #p3 .section-title { font-size: clamp(36px, 3.5vw, 48px); margin: 0; line-height: 1; }
+  #p3 .accent-bar { display: none; }
+  #p3 .korrghop-badge { margin: 0; font-size: 14px; white-space: nowrap; }
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    padding: 0 64px;
+    flex: 0 0 auto;
+  }
+  .values-list-mobile { display: none; }
+  .values-grid .value-card {
+    margin-bottom: 0;
+    border-radius: 18px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(232,83,10,0.15);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .values-grid .value-card:hover { box-shadow: 0 8px 32px rgba(232,83,10,0.12); transform: translateY(-2px); }
+  .values-grid .value-card-header { padding: 18px 20px 14px; cursor: default; flex-shrink: 0; }
+  .values-grid .value-emoji { font-size: 28px; }
+  .values-grid .value-name { font-size: 17px; }
+  .values-grid .value-tagline { font-size: 11px; }
+  .values-grid .value-chevron { display: none; }
+  .values-grid .value-body { max-height: none !important; flex: 1; overflow: auto; }
+  .values-grid .value-body-inner { padding: 0 18px 18px; border-top: 1px solid rgba(232,83,10,0.1); padding-top: 12px; }
+  .values-grid .role-row { margin-bottom: 8px; }
+  .values-grid .role-tag { font-size: 10px; padding: 3px 9px; }
+  .values-grid .role-text { font-size: 12.5px; }
+
+  /* ── PAGE 4: КОМАНДА ── */
+  #p4 { flex-direction: row; align-items: stretch; }
+  .p4-left {
+    flex: 0 0 44%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 72px 72px;
+  }
+  .p4-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 72px 64px;
+    gap: 20px;
+    background: rgba(0,0,0,0.18);
+  }
+  #p4 .section-header { padding: 0; }
+  #p4 .section-label { font-size: 12px; margin-bottom: 16px; }
+  #p4 .section-title { font-size: clamp(44px, 4.5vw, 62px); }
+  #p4 .accent-bar { margin: 22px 0 28px; width: 64px; height: 5px; }
+  #p4 .section-body { padding: 0; }
+  #p4 .team-tags { gap: 10px; }
+  #p4 .team-tag { font-size: 14px; padding: 10px 18px; }
+  #p4 .team-placeholder { margin-bottom: 0; padding: 36px 28px; border-radius: 22px; }
+  #p4 .team-placeholder .ph-icon { font-size: 52px; margin-bottom: 14px; }
+  #p4 .team-placeholder p { font-size: 15px; line-height: 1.65; }
+  .team-note {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 16px;
+    padding: 18px 22px;
+    color: rgba(255,255,255,0.6);
+    font-size: 14px;
+    font-style: italic;
+    line-height: 1.6;
+  }
+
+  /* ── PAGE 5: СТАРОЖИЛЫ ── */
+  #p5 { flex-direction: column; align-items: stretch; overflow: hidden; }
+  #p5 .p1-hero-strip { display: none; }
+  #p5 .section-header { padding: 40px 64px 24px; flex-shrink: 0; }
+  #p5 .section-label { font-size: 12px; }
+  #p5 .section-title { font-size: clamp(36px, 3.5vw, 48px); }
+  #p5 .accent-bar { margin: 12px 0 0; }
+  .veterans-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 0 64px 52px;
+    flex: 1;
+    min-height: 0;
+  }
+  .veterans-sidebar { display: none; }
+  #p5 .veteran-placeholder {
+    margin-bottom: 0;
+    border-radius: 22px;
+    padding: 36px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+  }
+  #p5 .veteran-placeholder .ph-icon { font-size: 52px; margin-bottom: 16px; }
+  #p5 .veteran-placeholder p { font-size: 14px; line-height: 1.65; }
+  #p5 .veteran-chips { display: none; }
+  #p5 .info-block { display: none; }
+
+  /* ── PAGE 6: БОНУСЫ ── */
+  #p6 { flex-direction: column; align-items: stretch; overflow: hidden; }
+  #p6 .section-header { padding: 36px 64px 16px; flex-shrink: 0; }
+  #p6 .section-label { font-size: 12px; }
+  #p6 .section-title { font-size: clamp(36px, 3.5vw, 48px); }
+  #p6 .section-body {
+    padding: 0 64px 44px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+  #p6 .benefit-list {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 12px;
+    flex: 1;
+    min-height: 0;
+    margin-bottom: 16px;
+  }
+  #p6 .benefit-item {
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: 16px;
+    padding: 18px 16px;
+    gap: 8px;
+  }
+  #p6 .benefit-icon { font-size: 26px; width: auto; }
+  #p6 .benefit-text { font-size: 13px; line-height: 1.3; }
+  #p6 .benefit-text small { font-size: 11px; }
+  #p6 .tg-btn { font-size: 16px; padding: 15px 28px; border-radius: 14px; align-self: flex-start; }
+
+  /* ── PAGE 7: WELCOME ── */
+  #p7 { flex-direction: row; align-items: stretch; text-align: left; padding: 0; justify-content: unset; }
+  .p7-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 80px 88px;
+  }
+  .p7-right {
+    flex: 0 0 38%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 72px 56px;
+    background: rgba(0,0,0,0.22);
+    gap: 20px;
+  }
+  #p7 .welcome-star { font-size: 72px; margin-bottom: 20px; }
+  #p7 .welcome-title { font-size: clamp(40px, 4.2vw, 60px); line-height: 1.1; text-align: left; margin-bottom: 14px; }
+  #p7 .welcome-sub { font-size: 20px; text-align: left; margin-bottom: 0; }
+  #p7 .qr-block { width: 100%; margin-bottom: 0; }
+  #p7 .hr-contact { width: 100%; margin-bottom: 0; }
+}
+</style>
+
+<div class="book-wrapper">
+
+<!-- PROGRESS DOTS -->
+<div class="dots" id="dots"></div>
+
+<!-- SIDE NAV (tablet/desktop) -->
+<div class="nav-side">
+  <button class="nav-side-btn" id="prevBtnSide" disabled>←</button>
+  <button class="nav-side-btn" id="nextBtnSide">→</button>
+</div>
+
+<!-- MOBILE NAV -->
+<nav class="nav-mobile">
+  <button class="nav-btn" id="prevBtn" disabled>←</button>
+  <span class="page-counter" id="counter">1 / 8</span>
+  <button class="nav-btn" id="nextBtn">→</button>
+</nav>
+
+  <!-- PAGE 0: ОБЛОЖКА -->
+  <section class="page active" id="p0">
+    <div class="cover-decor d1"></div>
+    <div class="cover-decor d2"></div>
+    <div class="cover-decor d3"></div>
+
+    <!-- Mobile: flat elements; Desktop: .cover-brand + .cover-deco-panel -->
+    <div class="cover-brand">
+      <div class="cover-flame">🔥</div>
+      <div class="cover-logo">Грильница</div>
+      <div class="cover-tagline">Сибирский бренд фастфуда</div>
+      <div class="cover-divider"></div>
+      <div class="cover-subtitle">Добро пожаловать<br>в нашу команду!</div>
+      <div class="cover-sub2">Мы рады, что ты здесь</div>
+      <div class="cover-badge">🏆 Народный знак качества 2023</div>
+    </div>
+
+    <div class="cover-deco-panel">
+      <div class="cover-stat-deco">
+        <div class="s-num">6+</div>
+        <div class="s-label">ресторанов<br>в Красноярске</div>
+      </div>
+      <div class="cover-stat-deco">
+        <div class="s-num">3М+</div>
+        <div class="s-label">довольных<br>клиентов каждый день</div>
+      </div>
+      <div class="cover-award-deco">
+        🏆 Фастфуд и доставка года<br>
+        <span style="font-weight:400;opacity:0.7;font-size:13px;">Победитель «Народного знака качества» — 2023</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGE 1: О НАС -->
+  <section class="page slide-right" id="p1">
+    <div class="p1-hero-strip"></div>
+
+    <div class="p1-left">
+      <div class="section-label">Кто мы</div>
+      <div class="accent-bar"></div>
+      <div class="info-block">
+        <p><strong>«Грильница»</strong> — успешный Сибирский бренд ресторанов быстрого питания. Мы предлагаем ресторанное качество для блюд фастфуда. Гости выбирают нас за качественную продукцию и приемлемую цену.</p>
+      </div>
+      <div class="info-block">
+        <p>Для наших блюд мы используем только продукты высокого качества. Мы гарантируем стабильно отличное качество для всех ресторанов сети. И мы не собираемся останавливаться на достигнутом!</p>
+      </div>
+      <div class="info-block">
+        <p>Мы строим команду профессионалов, которые любят свою дело. Мы заботимся о своих работниках, предлагая комфортные условия труда и достойную оплату.</p>
+      </div>
+      <a class="link-btn" href="https://krasnoyarsk.grilnica.ru/rest" target="_blank">
+        <span>🗺️ Наши рестораны и адреса</span>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <div class="p1-right">
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-num">6+</div>
+          <div class="stat-label">ресторанов<br>в Красноярске</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">3М+</div>
+          <div class="stat-label">довольных<br>клиентов</div>
+        </div>
+        <div class="stat-card full">
+          <div class="stat-num">🏆 Фастфуд и доставка года</div>
+          <div class="stat-label">Победитель «Народного знака качества» — 2023</div>
+        </div>
+      </div>
+      <a class="link-btn" href="https://krasnoyarsk.grilnica.ru/rest" target="_blank" style="display:none" id="linkBtnDesktop">
+        <span>🗺️ Наши рестораны и адреса</span>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- PAGE 2: МИССИЯ -->
+  <section class="page slide-right" id="p2">
+
+    <div class="p2-left">
+      <div class="section-header">
+        <div class="section-label">Наш смысл</div>
+        <div class="section-title">Миссия<br>& Цели</div>
+      </div>
+      <div class="section-body">
+        <div class="mission-quote">
+          <span class="q-mark">"</span>
+          <p>Предоставлять нашим гостям вкусную и качественную еду в дружелюбной обстановке, создавая легендарный опыт для каждого гостя</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="p2-right">
+      <div class="section-body">
+        <div class="goal-item">
+          <div class="goal-icon">⭐</div>
+          <div>
+            <div class="goal-title">Качество и свежесть</div>
+            <div class="goal-desc">Только отборные ингредиенты. Мы внимательно контролируем сроки годности, процессы приготовления и качество готовых блюд.</div>
+          </div>
+        </div>
+        <div class="goal-item">
+          <div class="goal-icon">⚡</div>
+          <div>
+            <div class="goal-title">Удобство и скорость</div>
+            <div class="goal-desc">Быстрое и удобное обслуживание. Контроль скорости отдачи и необходимых заготовок — чтобы гости не ждали.</div>
+          </div>
+        </div>
+        <div class="goal-item">
+          <div class="goal-icon">❤️</div>
+          <div>
+            <div class="goal-title">Забота и сервис</div>
+            <div class="goal-desc">Мы создаём такое впечатление о заведении, чтобы наши гости возвращались снова и снова.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGE 3: ЦЕННОСТИ -->
+  <section class="page slide-right" id="p3">
+    <div class="section-header">
+      <div>
+        <div class="section-label">Принципы работы</div>
+        <div class="section-title">Наши<br>ценности</div>
+        <div class="accent-bar"></div>
+      </div>
+      <div class="korrghop-badge">🔥 КОРГХОП</div>
+    </div>
+
+    <!-- Desktop grid (always visible) -->
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-card-header">
+          <span class="value-emoji">🤝</span>
+          <div>
+            <div class="value-name">Команда</div>
+            <div class="value-tagline">Верим в силу каждого</div>
+          </div>
+          <span class="value-chevron">▾</span>
+        </div>
+        <div class="value-body">
+          <div class="value-body-inner">
+            <div class="role-row"><span class="role-tag">Сотрудник</span><span class="role-text">Сделал сам — помоги другому.</span></div>
+            <div class="role-row"><span class="role-tag">Менеджер</span><span class="role-text">Найди того, кому нужна помощь, и помоги.</span></div>
+            <div class="role-row"><span class="role-tag">ТОП</span><span class="role-text">Мои сотрудники — моя главная ценность. Через правильную работу с людьми я достигаю целей.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="value-card">
+        <div class="value-card-header">
+          <span class="value-emoji">📚</span>
+          <div>
+            <div class="value-name">Развитие</div>
+            <div class="value-tagline">Учимся и учим других</div>
+          </div>
+          <span class="value-chevron">▾</span>
+        </div>
+        <div class="value-body">
+          <div class="value-body-inner">
+            <div class="role-row"><span class="role-tag">Сотрудник</span><span class="role-text">Завтрашний я знаю и умею больше, чем вчерашний.</span></div>
+            <div class="role-row"><span class="role-tag">Менеджер</span><span class="role-text">Я знаю и умею — хочу научить других делать правильно.</span></div>
+            <div class="role-row"><span class="role-tag">ТОП</span><span class="role-text">Мои знания — моя главная ценность. Извлекаю опыт из каждой ситуации.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="value-card">
+        <div class="value-card-header">
+          <span class="value-emoji">🎯</span>
+          <div>
+            <div class="value-name">Работа на результат</div>
+            <div class="value-tagline">Ответственность за итог</div>
+          </div>
+          <span class="value-chevron">▾</span>
+        </div>
+        <div class="value-body">
+          <div class="value-body-inner">
+            <div class="role-row"><span class="role-tag">Сотрудник</span><span class="role-text">Качественные блюда, быстрая скорость, лучший сервис, точность, чистота.</span></div>
+            <div class="role-row"><span class="role-tag">Менеджер</span><span class="role-text">Качественные блюда, быстрая скорость, лучший сервис, точность, чистота.</span></div>
+            <div class="role-row"><span class="role-tag">ТОП</span><span class="role-text">Счастливые гости, высокие показатели, сплочённая команда.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="value-card">
+        <div class="value-card-header">
+          <span class="value-emoji">🏠</span>
+          <div>
+            <div class="value-name">Гостеприимство</div>
+            <div class="value-tagline">Гости — наш приоритет</div>
+          </div>
+          <span class="value-chevron">▾</span>
+        </div>
+        <div class="value-body">
+          <div class="value-body-inner">
+            <div class="role-row"><span class="role-tag">Сотрудник</span><span class="role-text">Бросая все дела и оказывая искренний, доброжелательный приём каждому гостю.</span></div>
+            <div class="role-row"><span class="role-tag">Менеджер</span><span class="role-text">Довольные гости — это мой приоритет. Я знаю, как быть гостеприимным и научить других.</span></div>
+            <div class="role-row"><span class="role-tag">ТОП</span><span class="role-text">Счастливый сотрудник = счастливый гость.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="value-card">
+        <div class="value-card-header">
+          <span class="value-emoji">👨‍🍳</span>
+          <div>
+            <div class="value-name">Профессионализм</div>
+            <div class="value-tagline">Навыки = результат</div>
+          </div>
+          <span class="value-chevron">▾</span>
+        </div>
+        <div class="value-body">
+          <div class="value-body-inner">
+            <div class="role-row"><span class="role-tag">Сотрудник</span><span class="role-text">Для меня важно поддерживать качество своей работы.</span></div>
+            <div class="role-row"><span class="role-tag">Менеджер</span><span class="role-text">Важно поддерживать уровень навыков — своих и сотрудников.</span></div>
+            <div class="role-row"><span class="role-tag">ТОП</span><span class="role-text">Для меня важно поддерживать уровень своих компетенций.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile accordion list (hidden on desktop via CSS) -->
+    <div class="values-list-mobile section-body">
+      <div class="value-card" onclick="toggleValue(this)">
+        <div class="value-card-header">
+          <span class="value-emoji">🤝</span>
+          <div><div class="value-name">Команда</div><div class="value-tagline">Верим в силу каждого</div></div>
+          <span class="value-chevron">▾</span>
+        </div>
+        <div class="value-body"><div class="value-body-inner">
+          <div class="role-row"><span class="role-tag">Сотрудник</span><span class="role-text">Сделал сам — помоги другому.</span></div>
+          <div class="role-row"><span class="role-tag">Менеджер</span><span class="role-text">Найди того, кому нужна помощь, и помоги.</span></div>
+          <div class="role-row"><span class="role-tag">ТОП</span><span class="role-text">Мои сотрудники — моя главная ценность. Через правильную работу с людьми я достигаю целей.</span></div>
+        </div></div>
+      </div>
+      <div class="value-card" onclick="toggleValue(this)">
+        <div class="value-card-header">
+          <span class="value-emoji">📚</span>
+          <div><div class="value-name">Развитие</div><div class="value-tagline">Учимся и учим других</div></div>
+          <span class="value-chevron">▾</span>
+        </div>
+        <div class="value-body"><div class="value-body-inner">
+          <div class="role-row"><span class="role-tag">Сотрудник</span><span class="role-text">Завтрашний я знаю и умею больше, чем вчерашний.</span></div>
+          <div class="role-row"><span class="role-tag">Менеджер</span><span class="role-text">Я знаю и умею — хочу научить других делать правильно.</span></div>
+          <div class="role-row"><span class="role-tag">ТОП</span><span class="role-text">Мои знания — моя главная ценность. Извлекаю опыт из каждой ситуации.</span></div>
+        </div></div>
+      </div>
+      <div class="value-card" onclick="toggleValue(this)">
+        <div class="value-card-header">
+          <span class="value-emoji">🎯</span>
+          <div><div class="value-name">Работа на результат</div><div class="value-tagline">Ответственность за итог</div></div>
+          <span class="value-chevron">▾</span>
+        </div>
+        <div class="value-body"><div class="value-body-inner">
+          <div class="role-row"><span class="role-tag">Сотрудник</span><span class="role-text">Качественные блюда, быстрая скорость, лучший сервис, точность, чистота.</span></div>
+          <div class="role-row"><span class="role-tag">Менеджер</span><span class="role-text">Качественные блюда, быстрая скорость, лучший сервис, точность, чистота.</span></div>
+          <div class="role-row"><span class="role-tag">ТОП</span><span class="role-text">Счастливые гости, высокие показатели, сплочённая команда.</span></div>
+        </div></div>
+      </div>
+      <div class="value-card" onclick="toggleValue(this)">
+        <div class="value-card-header">
+          <span class="value-emoji">🏠</span>
+          <div><div class="value-name">Гостеприимство</div><div class="value-tagline">Гости — наш приоритет</div></div>
+          <span class="value-chevron">▾</span>
+        </div>
+        <div class="value-body"><div class="value-body-inner">
+          <div class="role-row"><span class="role-tag">Сотрудник</span><span class="role-text">Бросая все дела и оказывая искренний, доброжелательный приём каждому гостю.</span></div>
+          <div class="role-row"><span class="role-tag">Менеджер</span><span class="role-text">Довольные гости — это мой приоритет. Я знаю, как быть гостеприимным и научить других.</span></div>
+          <div class="role-row"><span class="role-tag">ТОП</span><span class="role-text">Счастливый сотрудник = счастливый гость.</span></div>
+        </div></div>
+      </div>
+      <div class="value-card" onclick="toggleValue(this)">
+        <div class="value-card-header">
+          <span class="value-emoji">👨‍🍳</span>
+          <div><div class="value-name">Профессионализм</div><div class="value-tagline">Навыки = результат</div></div>
+          <span class="value-chevron">▾</span>
+        </div>
+        <div class="value-body"><div class="value-body-inner">
+          <div class="role-row"><span class="role-tag">Сотрудник</span><span class="role-text">Для меня важно поддерживать качество своей работы.</span></div>
+          <div class="role-row"><span class="role-tag">Менеджер</span><span class="role-text">Важно поддерживать уровень навыков — своих и сотрудников.</span></div>
+          <div class="role-row"><span class="role-tag">ТОП</span><span class="role-text">Для меня важно поддерживать уровень своих компетенций.</span></div>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGE 4: КОМАНДА -->
+  <section class="page slide-right" id="p4">
+    <div class="p4-left">
+      <div class="section-header">
+        <div class="section-label">Люди</div>
+        <div class="section-title">Наша<br>команда</div>
+        <div class="accent-bar"></div>
+      </div>
+      <div class="section-body">
+        <div class="team-tags">
+          <span class="team-tag">👔 Управляющие</span>
+          <span class="team-tag">🎯 Топ-менеджмент</span>
+          <span class="team-tag">📱 QR видео-визитка</span>
+          <span class="team-tag">✨ Лучшие в деле</span>
+        </div>
+      </div>
+    </div>
+    <div class="p4-right">
+      <div class="team-placeholder">
+        <div class="ph-icon">📸</div>
+        <p><strong>Здесь появятся управляющие и топ-менеджмент</strong><br><br>Фото + описание + QR-код на видео-визитку — почему именно у них самая классная команда!</p>
+      </div>
+      <div class="team-note">
+        💡 <em>Для добавления контента предоставьте фотографии и описания управляющих — добавим их в эту страницу.</em>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGE 5: СТАРОЖИЛЫ -->
+  <section class="page slide-right" id="p5">
+    <div class="p1-hero-strip"></div>
+    <div class="section-header">
+      <div class="section-label">Легенды Грильницы</div>
+      <div class="section-title">Наши<br>старожилы</div>
+      <div class="accent-bar"></div>
+    </div>
+
+    <div class="veterans-grid">
+      <div class="veteran-placeholder">
+        <div class="ph-icon">🏅</div>
+        <p><strong>Ресторан №1</strong><br><br>Фото + стаж в компании + достижения + карьерный рост + «Почему мне нравится здесь работать»</p>
+      </div>
+      <div class="veteran-placeholder">
+        <div class="ph-icon">🏅</div>
+        <p><strong>Ресторан №2</strong><br><br>Фото + стаж в компании + достижения + карьерный рост + «Почему мне нравится здесь работать»</p>
+      </div>
+      <div class="veteran-placeholder">
+        <div class="ph-icon">🏅</div>
+        <p><strong>Ресторан №3</strong><br><br>Фото + стаж в компании + достижения + карьерный рост + «Почему мне нравится здесь работать»</p>
+      </div>
+    </div>
+
+    <!-- Mobile only -->
+    <div class="section-body veterans-sidebar">
+      <div class="veteran-placeholder">
+        <div class="ph-icon">🏅</div>
+        <p><strong>Минимум один человек из каждого ресторана</strong><br><br>Фото + стаж в компании + достижения + карьерный рост + «Почему мне нравится здесь работать»</p>
+      </div>
+      <div class="veteran-chips">
+        <span class="veteran-chip">🖼️ Фото сотрудника</span>
+        <span class="veteran-chip">⏳ Стаж в компании</span>
+        <span class="veteran-chip">📈 Карьерный рост</span>
+        <span class="veteran-chip">🏆 Достижения</span>
+        <span class="veteran-chip">💬 Цитата</span>
+      </div>
+      <div class="info-block" style="margin-top: 16px; border-left-color: var(--orange);">
+        <p>💡 <em style="color: var(--text-muted);">Для добавления контента предоставьте данные о ваших старожилах — добавим истории из каждого ресторана сети.</em></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGE 6: БОНУСЫ -->
+  <section class="page slide-right" id="p6">
+    <div class="section-header">
+      <div class="section-label">Это всё для тебя</div>
+      <div class="section-title">У нас<br>для тебя</div>
+    </div>
+    <div class="section-body">
+      <div class="benefit-list">
+        <div class="benefit-item">
+          <div class="benefit-icon">💵</div>
+          <div class="benefit-text">Зарплата вовремя <small>Всегда. Без задержек.</small></div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">👕</div>
+          <div class="benefit-text">Бесплатная форма своего размера <small>Экипируем с первого дня</small></div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">🍱</div>
+          <div class="benefit-text">Вкусные обеды каждый день <small>Разнообразное питание за счёт компании</small></div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">🍫</div>
+          <div class="benefit-text">Корпоративная скидка на меню <small>Питаешься у нас — платишь меньше</small></div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">📋</div>
+          <div class="benefit-text">Бесплатная санитарная книжка <small>Оформим за счёт компании</small></div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">⭐</div>
+          <div class="benefit-text">Доплата за стаж <small>Наша благодарность за преданность</small></div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">🚕</div>
+          <div class="benefit-text">Такси после смены — за наш счёт <small>Заботимся о твоём комфорте</small></div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">🏆</div>
+          <div class="benefit-text">Турниры мастерства <small>Соревнования и развитие внутри команды</small></div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">👨‍🏫</div>
+          <div class="benefit-text">Лучшие сотрудники передают опыт <small>Наставничество от профессионалов</small></div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">✨</div>
+          <div class="benefit-text">Мы умеем исполнять желания!</div>
+        </div>
+      </div>
+      <a class="tg-btn" href="https://t.me/+DSZkMa4Hx6AxNTAy" target="_blank">
+        <span class="tg-icon">✈️</span>
+        <span>Наш Telegram — заходи!</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- PAGE 7: WELCOME + QR -->
+  <section class="page slide-right" id="p7">
+    <div class="p7-left">
+      <span class="welcome-star">⭐</span>
+      <div class="welcome-title">Помни,<br>в Грильнице<br>только лучшие!</div>
+      <div class="welcome-sub">А ты уже один из нас 🔥</div>
+    </div>
+    <div class="p7-right">
+      <div class="qr-block">
+        <div class="qr-label">QR-код на эту книгу</div>
+        <div id="qrcode"></div>
+        <div class="qr-url" id="qr-url-label">yoursite.com/welcomebook</div>
+      </div>
+      <div class="hr-contact">
+        <p>Всегда рада тебя слушать</p>
+        <a href="tel:+79955242997">+7 995 524-29-97</a>
+        <span>Отдел персонала «Грильница»</span>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /book-wrapper -->
+
+<script>
+  const pages = document.querySelectorAll('.page');
+  const dotsEl = document.getElementById('dots');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const prevBtnSide = document.getElementById('prevBtnSide');
+  const nextBtnSide = document.getElementById('nextBtnSide');
+  const counter = document.getElementById('counter');
+  let current = 0;
+  const total = pages.length;
+
+  // Build dots
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    dotsEl.appendChild(d);
+  }
+  const dots = dotsEl.querySelectorAll('.dot');
+
+  function goTo(idx) {
+    const dir = idx > current ? 'left' : 'right';
+    pages[current].classList.remove('active');
+    pages[current].classList.add(dir === 'left' ? 'slide-left' : 'slide-right');
+    dots[current].classList.remove('active');
+    current = idx;
+    pages[current].classList.remove('slide-left', 'slide-right');
+    pages[current].classList.add('active');
+    dots[current].classList.add('active');
+    const disabled = { prev: current === 0, next: current === total - 1 };
+    prevBtn.disabled = disabled.prev;
+    nextBtn.disabled = disabled.next;
+    prevBtnSide.disabled = disabled.prev;
+    nextBtnSide.disabled = disabled.next;
+    counter.textContent = (current + 1) + ' / ' + total;
+    pages[current].scrollTop = 0;
+  }
+
+  prevBtn.addEventListener('click', () => { if (current > 0) goTo(current - 1); });
+  nextBtn.addEventListener('click', () => { if (current < total - 1) goTo(current + 1); });
+  prevBtnSide.addEventListener('click', () => { if (current > 0) goTo(current - 1); });
+  nextBtnSide.addEventListener('click', () => { if (current < total - 1) goTo(current + 1); });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { if (current < total - 1) goTo(current + 1); }
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   { if (current > 0) goTo(current - 1); }
+  });
+
+  // Swipe
+  let touchX = 0;
+  document.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; });
+  document.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 50) {
+      if (dx < 0 && current < total - 1) goTo(current + 1);
+      if (dx > 0 && current > 0) goTo(current - 1);
+    }
+  });
+
+  // Mobile value accordion
+  function toggleValue(card) {
+    card.classList.toggle('open');
+  }
+
+  // QR Code - ВАЖНО: Обновить URL после публикации на GitHub Pages
+  const bookURL = 'https://YOUR_USERNAME.github.io/welcomebook-grilnitsa/wb-4c2e0a519df3/';
+  document.getElementById('qr-url-label').textContent = bookURL;
+  new QRCode(document.getElementById('qrcode'), {
+    text: bookURL,
+    width: 160,
+    height: 160,
+    colorDark: '#1C1008',
+    colorLight: '#ffffff',
+    correctLevel: QRCode.CorrectLevel.H
+  });
+</script>
+
+<!-- ORIGINAL WELCOME BOOK CONTENT ENDS HERE -->
+</div>
+
+<!-- ═══ PASSWORD GATE SCRIPT ═══ -->
+<script>
+// SHA-256 hash function
+async function sha256(message) {
+  const msgBuffer = new TextEncoder().encode(message);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+// ВАЖНО: Замените этот хеш на хеш вашего пароля!
+// Для генерации хеша откройте консоль браузера (F12) и выполните:
+// await sha256("ВАШ_ПАРОЛЬ")
+const VALID_HASH = 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'; // Пример (пустая строка)
+
+async function checkPassword() {
+  const input = document.getElementById('pwd-input');
+  const error = document.getElementById('error-msg');
+  const gate = document.getElementById('access-gate');
+  const content = document.getElementById('welcomebook-content');
+
+  const hash = await sha256(input.value);
+
+  if (hash === VALID_HASH) {
+    // Успешная аутентификация
+    sessionStorage.setItem('wb_auth', 'true');
+    gate.classList.add('unlocked');
+    content.classList.add('unlocked');
+    error.classList.remove('show');
+  } else {
+    // Ошибка
+    error.classList.add('show');
+    input.value = '';
+    input.focus();
+
+    // Вибрация на мобильных
+    if (navigator.vibrate) navigator.vibrate(200);
+  }
+}
+
+// Проверка сохраненной сессии
+window.addEventListener('DOMContentLoaded', () => {
+  const input = document.getElementById('pwd-input');
+  input.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') checkPassword();
+  });
+
+  // Если уже авторизован в этой сессии
+  if (sessionStorage.getItem('wb_auth') === 'true') {
+    document.getElementById('access-gate').classList.add('unlocked');
+    document.getElementById('welcomebook-content').classList.add('unlocked');
+  }
+
+  input.focus();
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,12 @@
+# Блокировка всех роботов
+User-agent: *
+Disallow: /
+
+User-agent: Googlebot
+Disallow: /
+
+User-agent: Yandex
+Disallow: /
+
+User-agent: Bingbot
+Disallow: /
