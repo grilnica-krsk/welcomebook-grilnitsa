@@ -1,0 +1,241 @@
+  <!-- PAGE 5: ВСЯ КОМАНДА -->
+  <section class="page slide-right" id="p5">
+    <div class="p1-hero-strip"></div>
+    <div class="section-header">
+      <div class="section-label">Мы вместе</div>
+      <div class="section-title">Вся<br>команда</div>
+      <div class="accent-bar"></div>
+    </div>
+
+    <style>
+      .team-restaurant {
+        margin-bottom: 48px;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .team-restaurant-title {
+        color: var(--orange-dark);
+        font-size: 18px;
+        font-weight: 700;
+        margin: 0 0 24px 0;
+        padding: 12px 20px;
+        background: linear-gradient(135deg, rgba(232, 83, 10, 0.15), rgba(232, 83, 10, 0.05));
+        border-left: 4px solid var(--orange);
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      }
+
+      .team-carousel-wrapper {
+        position: relative;
+        padding: 0 70px;
+      }
+
+      .team-carousel {
+        overflow: hidden;
+        border-radius: 16px;
+      }
+
+      .team-carousel-track {
+        display: flex;
+        transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        gap: 24px;
+        padding: 4px;
+      }
+
+      .team-member-card {
+        min-width: calc(33.333% - 16px);
+        flex-shrink: 0;
+        background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
+        border-radius: 16px;
+        padding: 28px 24px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 2px solid rgba(232, 83, 10, 0.08);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .team-member-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 16px 40px rgba(232, 83, 10, 0.2);
+        border-color: rgba(232, 83, 10, 0.3);
+      }
+
+      .team-member-card img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin: 0 0 16px 0;
+        border: 4px solid rgba(232, 83, 10, 0.15);
+        box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      }
+
+      .team-member-card h3 {
+        color: var(--orange-dark);
+        font-size: 17px;
+        margin: 0 0 8px;
+        text-align: center;
+        font-weight: 700;
+      }
+
+      .team-member-card .role {
+        color: var(--text-muted);
+        font-size: 13px;
+        text-align: center;
+        margin-bottom: 14px;
+        font-weight: 500;
+      }
+
+      .team-member-card .description {
+        color: var(--text);
+        font-size: 12px;
+        line-height: 1.6;
+        margin-bottom: 12px;
+        text-align: justify;
+        flex-grow: 1;
+      }
+
+      .team-member-card .quote {
+        color: var(--orange);
+        font-style: italic;
+        font-size: 11px;
+        padding: 10px 12px;
+        background: rgba(232, 83, 10, 0.06);
+        border-left: 3px solid var(--orange);
+        margin-top: 12px;
+        border-radius: 0 8px 8px 0;
+        width: 100%;
+      }
+
+      .team-carousel-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: var(--orange);
+        color: #fff;
+        border: none;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        font-size: 26px;
+        cursor: pointer;
+        z-index: 10;
+        box-shadow: 0 6px 20px rgba(232, 83, 10, 0.35);
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+      }
+
+      .team-carousel-btn:hover {
+        background: var(--orange-dark);
+        transform: translateY(-50%) scale(1.15);
+        box-shadow: 0 8px 28px rgba(232, 83, 10, 0.5);
+      }
+
+      .team-carousel-btn:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+      }
+
+      .team-carousel-btn.prev { left: 0; }
+      .team-carousel-btn.next { right: 0; }
+
+      .team-carousel-dots {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .team-carousel-dot {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #ddd;
+        margin: 0 6px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .team-carousel-dot.active {
+        background: var(--orange);
+        transform: scale(1.4);
+        box-shadow: 0 2px 8px rgba(232, 83, 10, 0.5);
+      }
+
+      /* Адаптация для планшетов */
+      @media (max-width: 1024px) {
+        .team-member-card {
+          min-width: calc(50% - 12px);
+        }
+
+        .team-carousel-wrapper {
+          padding: 0 60px;
+        }
+
+        .team-carousel-track {
+          gap: 16px;
+        }
+
+        .team-carousel-btn {
+          width: 44px;
+          height: 44px;
+          font-size: 22px;
+        }
+      }
+
+      /* Адаптация для мобильных */
+      @media (max-width: 768px) {
+        .team-member-card {
+          min-width: 100%;
+          padding: 24px 20px;
+        }
+
+        .team-carousel-wrapper {
+          padding: 0 50px;
+        }
+
+        .team-member-card img {
+          width: 110px;
+          height: 110px;
+        }
+
+        .team-member-card h3 {
+          font-size: 16px;
+        }
+
+        .team-carousel-btn {
+          width: 40px;
+          height: 40px;
+          font-size: 20px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .team-carousel-wrapper {
+          padding: 0 42px;
+        }
+
+        .team-member-card {
+          padding: 20px 16px;
+        }
+
+        .team-member-card img {
+          width: 100px;
+          height: 100px;
+        }
+
+        .team-carousel-btn {
+          width: 36px;
+          height: 36px;
+          font-size: 18px;
+        }
+      }
+    </style>
+
+    <div style="overflow-y: auto; max-height: 70vh; padding: 20px;">

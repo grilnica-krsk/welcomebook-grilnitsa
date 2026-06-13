@@ -6,7 +6,7 @@ with open('wb-4c2e0a519df3/index.html', 'r', encoding='utf-8') as f:
     lines = f.readlines()
 
 # Читаем новую PAGE 5
-with open('page5_final.txt', 'r', encoding='utf-8') as f:
+with open('page5_perfect_final.txt', 'r', encoding='utf-8') as f:
     new_page5 = f.read()
 
 # Находим начало и конец PAGE 5
