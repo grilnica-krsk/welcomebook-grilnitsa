@@ -1688,7 +1688,7 @@ html, body {
   }
 
   // QR Code - ВАЖНО: Обновить URL после публикации на GitHub Pages
-  const bookURL = 'https://YOUR_USERNAME.github.io/welcomebook-grilnitsa/wb-4c2e0a519df3/';
+  const bookURL = 'https://grilnica-krsk.github.io/welcomebook-grilnitsa/wb-4c2e0a519df3/?pwd=Grilnica.krsk';
   document.getElementById('qr-url-label').textContent = bookURL;
   new QRCode(document.getElementById('qrcode'), {
     text: bookURL,
@@ -1716,7 +1716,7 @@ async function sha256(message) {
 // ВАЖНО: Замените этот хеш на хеш вашего пароля!
 // Для генерации хеша откройте консоль браузера (F12) и выполните:
 // await sha256("ВАШ_ПАРОЛЬ")
-const VALID_HASH = 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'; // Пример (пустая строка)
+const VALID_HASH = '0f397b43a550f3754b05b276f25cb9bf92ff1ae80c054ff7ff0bff9da44089cf'; // Пароль: Grilnica.krsk
 
 async function checkPassword() {
   const input = document.getElementById('pwd-input');
@@ -1744,11 +1744,26 @@ async function checkPassword() {
 }
 
 // Проверка сохраненной сессии
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', async () => {
   const input = document.getElementById('pwd-input');
   input.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') checkPassword();
   });
+
+  // Проверка URL параметра pwd для автоматического входа
+  const urlParams = new URLSearchParams(window.location.search);
+  const urlPassword = urlParams.get('pwd');
+
+  if (urlPassword) {
+    const hash = await sha256(urlPassword);
+    if (hash === VALID_HASH) {
+      // Автоматический вход через URL параметр
+      sessionStorage.setItem('wb_auth', 'true');
+      document.getElementById('access-gate').classList.add('unlocked');
+      document.getElementById('welcomebook-content').classList.add('unlocked');
+      return;
+    }
+  }
 
   // Если уже авторизован в этой сессии
   if (sessionStorage.getItem('wb_auth') === 'true') {
