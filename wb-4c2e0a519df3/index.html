@@ -1639,6 +1639,79 @@ html, body {
         background: var(--orange);
         transform: scale(1.3);
       }
+
+      /* Адаптация для мобильных устройств */
+      @media (max-width: 768px) {
+        .carousel-container {
+          padding: 0 35px;
+        }
+        .carousel-card {
+          padding: 16px;
+        }
+        .carousel-card img {
+          width: 120px;
+          height: 120px;
+        }
+        .carousel-card h3 {
+          font-size: 17px;
+        }
+        .carousel-card .role {
+          font-size: 12px;
+        }
+        .carousel-card .description {
+          font-size: 12px;
+          line-height: 1.6;
+        }
+        .carousel-card .quote {
+          font-size: 11px;
+          padding: 8px 12px;
+        }
+        .carousel-btn {
+          width: 32px;
+          height: 32px;
+          font-size: 18px;
+        }
+        .restaurant-title {
+          font-size: 15px;
+          padding: 8px 12px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .carousel-container {
+          padding: 0 30px;
+        }
+        .carousel-card {
+          padding: 12px;
+        }
+        .carousel-card img {
+          width: 100px;
+          height: 100px;
+        }
+        .carousel-card h3 {
+          font-size: 16px;
+        }
+        .carousel-card .role {
+          font-size: 11px;
+        }
+        .carousel-card .description {
+          font-size: 11px;
+          line-height: 1.5;
+        }
+        .carousel-card .quote {
+          font-size: 10px;
+          padding: 6px 10px;
+        }
+        .carousel-btn {
+          width: 28px;
+          height: 28px;
+          font-size: 16px;
+        }
+        .restaurant-title {
+          font-size: 14px;
+          padding: 6px 10px;
+        }
+      }
     </style>
 
     <div style="overflow-y: auto; max-height: 70vh; padding: 20px;">
