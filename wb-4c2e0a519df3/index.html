@@ -1495,7 +1495,7 @@ html, body {
 
       <!-- Управляющая Ахмеджанова Диана -->
       <div style="background: rgba(255,255,255,0.08); border-radius: 20px; padding: 20px; margin-bottom: 20px;">
-        <img src="photos/ЗАМЕНИ_НА_ФОТО_ДИАНЫ.jfif" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-bottom: 12px;" alt="Ахмеджанова Диана">
+        <img src="photos/fb60fe86-67b8-41f2-ba3e-9f07c3d8f0b3.jfif" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-bottom: 12px;" alt="Ахмеджанова Диана">
         <h3 style="color: #fff; font-size: 18px; margin: 0 0 4px 0;">Ахмеджанова Диана</h3>
         <p style="color: rgba(255,255,255,0.7); font-size: 14px; margin: 0 0 8px 0;">Управляющая, 26 лет</p>
         <p style="color: rgba(255,255,255,0.85); font-size: 13px; line-height: 1.5; margin: 0;">Стаж 5 лет. В компанию пришла в 2021 году на должность менеджера доставки. В конце 2022 года повысили до управляющего. Сейчас занимает эту должность.</p>
@@ -1503,7 +1503,7 @@ html, body {
 
       <!-- Управляющий Суксин Дмитрий -->
       <div style="background: rgba(255,255,255,0.08); border-radius: 20px; padding: 20px; margin-bottom: 20px;">
-        <img src="photos/ЗАМЕНИ_НА_ФОТО_ДМИТРИЯ.jfif" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-bottom: 12px;" alt="Суксин Дмитрий">
+        <img src="photos/2c69f172-5b4f-4dc9-becd-090099f463c6.jfif" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-bottom: 12px;" alt="Суксин Дмитрий">
         <h3 style="color: #fff; font-size: 18px; margin: 0 0 4px 0;">Суксин Дмитрий Юрьевич</h3>
         <p style="color: rgba(255,255,255,0.7); font-size: 14px; margin: 0 0 8px 0;">Управляющий, 31 год</p>
         <p style="color: rgba(255,255,255,0.85); font-size: 13px; line-height: 1.5; margin: 0;">Стаж 2 года. В компанию пришел менеджером смены. Жизнерадостный, целеустремленный. Моя команда для меня лучшая, потому что мы на одной волне и двигаемся в одном направлении.</p>
@@ -1511,7 +1511,7 @@ html, body {
 
       <!-- Управляющий Липовцев Андрей -->
       <div style="background: rgba(255,255,255,0.08); border-radius: 20px; padding: 20px;">
-        <img src="photos/ЗАМЕНИ_НА_ФОТО_АНДРЕЯ.jfif" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-bottom: 12px;" alt="Липовцев Андрей">
+        <img src="photos/9305a58f-78ec-4efa-84d6-dc408181647c.jfif" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-bottom: 12px;" alt="Липовцев Андрей">
         <h3 style="color: #fff; font-size: 18px; margin: 0 0 4px 0;">Липовцев Андрей</h3>
         <p style="color: rgba(255,255,255,0.7); font-size: 14px; margin: 0 0 8px 0;">Управляющий, стаж 2,5 года</p>
         <p style="color: rgba(255,255,255,0.85); font-size: 13px; line-height: 1.5; margin: 0;">Пришел в августе 2023 года на управляющего на ресторан Мира. Добился сплоченного коллектива и хороших показателей. Нравится здесь работать, потому что есть возможность создавать свою команду и достигать цели компании.</p>
@@ -2230,56 +2230,351 @@ if (typeof window !== "undefined") {
       <div class="section-label">Это всё для тебя</div>
       <div class="section-title">У нас<br>для тебя</div>
     </div>
-    <div class="section-body">
-      <div class="benefit-list">
-        <div class="benefit-item">
-          <div class="benefit-icon">💵</div>
-          <div class="benefit-text">Зарплата вовремя <small>Всегда. Без задержек.</small></div>
+
+    <style>
+      .benefits-carousel-wrapper {
+        position: relative;
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 0 60px;
+      }
+
+      .benefits-carousel {
+        overflow: hidden;
+        border-radius: 20px;
+      }
+
+      .benefits-track {
+        display: flex;
+        transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .benefit-card {
+        min-width: calc(33.333% - 20px);
+        margin: 0 10px;
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        border-radius: 16px;
+        padding: 32px 24px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        text-align: center;
+        transition: all 0.3s ease;
+        border: 2px solid rgba(232, 83, 10, 0.1);
+      }
+
+      .benefit-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 16px 40px rgba(232, 83, 10, 0.2);
+        border-color: rgba(232, 83, 10, 0.3);
+      }
+
+      .benefit-card-icon {
+        font-size: 56px;
+        margin-bottom: 20px;
+        display: block;
+        filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+      }
+
+      .benefit-card-title {
+        color: var(--orange-dark);
+        font-size: 18px;
+        font-weight: 700;
+        margin: 0 0 12px 0;
+        line-height: 1.4;
+      }
+
+      .benefit-card-desc {
+        color: var(--text-muted);
+        font-size: 13px;
+        line-height: 1.6;
+        margin: 0;
+      }
+
+      .carousel-nav-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: var(--orange);
+        color: #fff;
+        border: none;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        font-size: 24px;
+        cursor: pointer;
+        z-index: 10;
+        box-shadow: 0 6px 20px rgba(232, 83, 10, 0.3);
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .carousel-nav-btn:hover {
+        background: var(--orange-dark);
+        transform: translateY(-50%) scale(1.1);
+      }
+
+      .carousel-nav-btn.prev { left: 0; }
+      .carousel-nav-btn.next { right: 0; }
+
+      .carousel-indicators {
+        text-align: center;
+        margin-top: 24px;
+      }
+
+      .carousel-indicator {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #ddd;
+        margin: 0 6px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .carousel-indicator.active {
+        background: var(--orange);
+        transform: scale(1.4);
+        box-shadow: 0 2px 8px rgba(232, 83, 10, 0.4);
+      }
+
+      .tg-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        background: linear-gradient(135deg, var(--orange), #ff6b35);
+        color: #fff;
+        padding: 16px 32px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 16px;
+        box-shadow: 0 6px 24px rgba(232, 83, 10, 0.3);
+        transition: all 0.3s ease;
+        margin-top: 32px;
+      }
+
+      .tg-btn:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 32px rgba(232, 83, 10, 0.4);
+      }
+
+      .tg-icon {
+        font-size: 20px;
+      }
+
+      /* Адаптация для планшетов */
+      @media (max-width: 1024px) {
+        .benefit-card {
+          min-width: calc(50% - 20px);
+        }
+      }
+
+      /* Адаптация для мобильных */
+      @media (max-width: 768px) {
+        .benefits-carousel-wrapper {
+          padding: 0 50px;
+        }
+
+        .benefit-card {
+          min-width: calc(100% - 20px);
+          padding: 24px 20px;
+        }
+
+        .benefit-card-icon {
+          font-size: 48px;
+        }
+
+        .benefit-card-title {
+          font-size: 16px;
+        }
+
+        .carousel-nav-btn {
+          width: 40px;
+          height: 40px;
+          font-size: 20px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .benefits-carousel-wrapper {
+          padding: 0 40px;
+        }
+
+        .benefit-card {
+          padding: 20px 16px;
+        }
+
+        .carousel-nav-btn {
+          width: 36px;
+          height: 36px;
+          font-size: 18px;
+        }
+      }
+    </style>
+
+    <div class="section-body" style="padding-top: 20px;">
+      <div class="benefits-carousel-wrapper">
+        <button class="carousel-nav-btn prev" onclick="benefitsCarouselPrev()">‹</button>
+
+        <div class="benefits-carousel">
+          <div class="benefits-track" id="benefits-track">
+
+            <div class="benefit-card">
+              <span class="benefit-card-icon">💵</span>
+              <h3 class="benefit-card-title">Зарплата вовремя</h3>
+              <p class="benefit-card-desc">Всегда. Без задержек. Стабильность которой можно доверять.</p>
+            </div>
+
+            <div class="benefit-card">
+              <span class="benefit-card-icon">👕</span>
+              <h3 class="benefit-card-title">Бесплатная форма своего размера</h3>
+              <p class="benefit-card-desc">Экипируем с первого дня. Комфорт и стиль в одном комплекте.</p>
+            </div>
+
+            <div class="benefit-card">
+              <span class="benefit-card-icon">🍱</span>
+              <h3 class="benefit-card-title">Вкусные обеды каждый день</h3>
+              <p class="benefit-card-desc">Разнообразное питание за счёт компании. Заботимся о твоём здоровье.</p>
+            </div>
+
+            <div class="benefit-card">
+              <span class="benefit-card-icon">🍫</span>
+              <h3 class="benefit-card-title">Корпоративная скидка на меню</h3>
+              <p class="benefit-card-desc">Питаешься у нас — платишь меньше. Выгода для своих!</p>
+            </div>
+
+            <div class="benefit-card">
+              <span class="benefit-card-icon">📋</span>
+              <h3 class="benefit-card-title">Бесплатная санитарная книжка</h3>
+              <p class="benefit-card-desc">Оформим за счёт компании. Без лишних хлопот.</p>
+            </div>
+
+            <div class="benefit-card">
+              <span class="benefit-card-icon">⭐</span>
+              <h3 class="benefit-card-title">Доплата за стаж</h3>
+              <p class="benefit-card-desc">Наша благодарность за преданность. Ценим каждый твой день с нами.</p>
+            </div>
+
+            <div class="benefit-card">
+              <span class="benefit-card-icon">🚕</span>
+              <h3 class="benefit-card-title">Такси после смены — за наш счёт</h3>
+              <p class="benefit-card-desc">Заботимся о твоём комфорте. Безопасная дорога домой.</p>
+            </div>
+
+            <div class="benefit-card">
+              <span class="benefit-card-icon">🏆</span>
+              <h3 class="benefit-card-title">Турниры мастерства</h3>
+              <p class="benefit-card-desc">Соревнования и развитие внутри команды. Расти вместе с лучшими!</p>
+            </div>
+
+            <div class="benefit-card">
+              <span class="benefit-card-icon">👨‍🏫</span>
+              <h3 class="benefit-card-title">Лучшие сотрудники передают опыт</h3>
+              <p class="benefit-card-desc">Наставничество от профессионалов. Учись у лучших!</p>
+            </div>
+
+            <div class="benefit-card">
+              <span class="benefit-card-icon">✨</span>
+              <h3 class="benefit-card-title">Мы умеем исполнять желания!</h3>
+              <p class="benefit-card-desc">Открыты для идей и готовы воплощать мечты в реальность.</p>
+            </div>
+
+          </div>
         </div>
-        <div class="benefit-item">
-          <div class="benefit-icon">👕</div>
-          <div class="benefit-text">Бесплатная форма своего размера <small>Экипируем с первого дня</small></div>
-        </div>
-        <div class="benefit-item">
-          <div class="benefit-icon">🍱</div>
-          <div class="benefit-text">Вкусные обеды каждый день <small>Разнообразное питание за счёт компании</small></div>
-        </div>
-        <div class="benefit-item">
-          <div class="benefit-icon">🍫</div>
-          <div class="benefit-text">Корпоративная скидка на меню <small>Питаешься у нас — платишь меньше</small></div>
-        </div>
-        <div class="benefit-item">
-          <div class="benefit-icon">📋</div>
-          <div class="benefit-text">Бесплатная санитарная книжка <small>Оформим за счёт компании</small></div>
-        </div>
-        <div class="benefit-item">
-          <div class="benefit-icon">⭐</div>
-          <div class="benefit-text">Доплата за стаж <small>Наша благодарность за преданность</small></div>
-        </div>
-        <div class="benefit-item">
-          <div class="benefit-icon">🚕</div>
-          <div class="benefit-text">Такси после смены — за наш счёт <small>Заботимся о твоём комфорте</small></div>
-        </div>
-        <div class="benefit-item">
-          <div class="benefit-icon">🏆</div>
-          <div class="benefit-text">Турниры мастерства <small>Соревнования и развитие внутри команды</small></div>
-        </div>
-        <div class="benefit-item">
-          <div class="benefit-icon">👨‍🏫</div>
-          <div class="benefit-text">Лучшие сотрудники передают опыт <small>Наставничество от профессионалов</small></div>
-        </div>
-        <div class="benefit-item">
-          <div class="benefit-icon">✨</div>
-          <div class="benefit-text">Мы умеем исполнять желания!</div>
-        </div>
+
+        <button class="carousel-nav-btn next" onclick="benefitsCarouselNext()">›</button>
       </div>
-      <a class="tg-btn" href="https://t.me/+DSZkMa4Hx6AxNTAy" target="_blank">
-        <span class="tg-icon">✈️</span>
-        <span>Наш Telegram — заходи!</span>
-      </a>
+
+      <div class="carousel-indicators" id="benefits-indicators"></div>
+
+      <div style="text-align: center;">
+        <a class="tg-btn" href="https://t.me/+DSZkMa4Hx6AxNTAy" target="_blank">
+          <span class="tg-icon">✈️</span>
+          <span>Наш Telegram — заходи!</span>
+        </a>
+      </div>
     </div>
   </section>
 
+  <script>
+// Карусель бонусов
+let benefitsCurrentSlide = 0;
+const benefitsCards = document.querySelectorAll('.benefit-card');
+const benefitsTotal = benefitsCards.length;
+let benefitsPerView = 3; // По умолчанию 3 карточки
+
+// Определяем количество видимых карточек в зависимости от ширины экрана
+function updateBenefitsPerView() {
+  const width = window.innerWidth;
+  if (width <= 768) {
+    benefitsPerView = 1;
+  } else if (width <= 1024) {
+    benefitsPerView = 2;
+  } else {
+    benefitsPerView = 3;
+  }
+}
+
+function updateBenefitsCarousel() {
+  const track = document.getElementById('benefits-track');
+  const cardWidth = 100 / benefitsPerView;
+  const offset = -(benefitsCurrentSlide * cardWidth);
+  track.style.transform = `translateX(${offset}%)`;
+
+  // Обновляем индикаторы
+  const maxSlide = Math.ceil(benefitsTotal / benefitsPerView) - 1;
+  const indicators = document.querySelectorAll('.carousel-indicator');
+  indicators.forEach((ind, i) => {
+    ind.classList.toggle('active', i === benefitsCurrentSlide);
+  });
+}
+
+function benefitsCarouselNext() {
+  const maxSlide = Math.ceil(benefitsTotal / benefitsPerView) - 1;
+  benefitsCurrentSlide = (benefitsCurrentSlide + 1) % (maxSlide + 1);
+  updateBenefitsCarousel();
+}
+
+function benefitsCarouselPrev() {
+  const maxSlide = Math.ceil(benefitsTotal / benefitsPerView) - 1;
+  benefitsCurrentSlide = (benefitsCurrentSlide - 1 + maxSlide + 1) % (maxSlide + 1);
+  updateBenefitsCarousel();
+}
+
+// Инициализация индикаторов
+function initBenefitsCarousel() {
+  updateBenefitsPerView();
+  const maxSlide = Math.ceil(benefitsTotal / benefitsPerView);
+  const indicatorsContainer = document.getElementById('benefits-indicators');
+  indicatorsContainer.innerHTML = '';
+
+  for (let i = 0; i < maxSlide; i++) {
+    const indicator = document.createElement('span');
+    indicator.className = `carousel-indicator ${i === 0 ? 'active' : ''}`;
+    indicator.onclick = () => {
+      benefitsCurrentSlide = i;
+      updateBenefitsCarousel();
+    };
+    indicatorsContainer.appendChild(indicator);
+  }
+
+  updateBenefitsCarousel();
+}
+
+// Пересчитываем при изменении размера окна
+window.addEventListener('resize', () => {
+  updateBenefitsPerView();
+  benefitsCurrentSlide = 0; // Сбрасываем позицию
+  initBenefitsCarousel();
+});
+
+// Инициализация при загрузке
+if (typeof window !== 'undefined') {
+  window.addEventListener('DOMContentLoaded', initBenefitsCarousel);
+}
+  </script>
   <!-- PAGE 7: WELCOME + QR -->
   <section class="page slide-right" id="p7">
     <div class="p7-left">
