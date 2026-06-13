@@ -1,0 +1,204 @@
+<!-- PAGE 5: ВСЯ КОМАНДА (КАРУСЕЛЬ) -->
+<section class="page slide-right" id="p5">
+  <div class="p1-hero-strip"></div>
+  <div class="section-header">
+    <div class="section-label">Мы вместе</div>
+    <div class="section-title">Вся<br>команда</div>
+    <div class="accent-bar"></div>
+  </div>
+
+  <style>
+    .restaurant-carousel {
+      margin-bottom: 40px;
+      position: relative;
+    }
+    .restaurant-title {
+      color: var(--orange-dark);
+      font-size: 18px;
+      font-weight: 700;
+      margin: 0 0 20px 0;
+      padding: 12px 20px;
+      background: rgba(232, 83, 10, 0.1);
+      border-left: 4px solid var(--orange);
+    }
+    .carousel-container {
+      position: relative;
+      overflow: hidden;
+      padding: 0 50px;
+    }
+    .carousel-track {
+      display: flex;
+      transition: transform 0.3s ease;
+    }
+    .carousel-card {
+      min-width: 100%;
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .carousel-card img {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 16px;
+      display: block;
+    }
+    .carousel-card h3 {
+      color: var(--orange-dark);
+      font-size: 20px;
+      margin: 0 0 8px;
+      text-align: center;
+    }
+    .carousel-card .role {
+      color: var(--text-muted);
+      font-size: 14px;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .carousel-card .description {
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .carousel-card .quote {
+      color: var(--orange);
+      font-style: italic;
+      font-size: 13px;
+      padding: 12px;
+      background: rgba(232, 83, 10, 0.05);
+      border-left: 3px solid var(--orange);
+      margin-top: 16px;
+    }
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 10;
+    }
+    .carousel-btn:hover {
+      background: var(--orange-dark);
+    }
+    .carousel-btn-prev { left: 0; }
+    .carousel-btn-next { right: 0; }
+    .carousel-dots {
+      text-align: center;
+      margin-top: 16px;
+    }
+    .carousel-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ccc;
+      margin: 0 4px;
+      cursor: pointer;
+    }
+    .carousel-dot.active {
+      background: var(--orange);
+    }
+  </style>
+
+  <div style="overflow-y: auto; max-height: 70vh; padding: 20px;">
+
+    <!-- Ресторан №1 - Мартынова 22 -->
+    <div class="restaurant-carousel" data-restaurant="1">
+      <h2 class="restaurant-title">🏠 Ресторан Мартынова 22</h2>
+      <div class="carousel-container">
+        <button class="carousel-btn carousel-btn-prev" onclick="prevSlide(1)">‹</button>
+        <div class="carousel-track" id="track-1">
+
+          <div class="carousel-card">
+            <img src="photos/242b6b22-1657-476b-bc42-24d2fb44d106.jfif" alt="Киреева Алиса">
+            <h3>Киреева Алиса</h3>
+            <p class="role">22 года, стаж 3 года</p>
+            <div class="description">
+              Пришла менеджером доставки на Мира, потом перешла на Мартынова. Позитивная, всегда готова помочь, заряжает своей энергией!
+            </div>
+            <div class="quote">
+              «Нравится отношения руководства к персоналу, дружелюбный коллектив, хорошая оплата труда. Люблю Грильницу!»
+            </div>
+          </div>
+
+          <div class="carousel-card">
+            <img src="photos/4c120d19-9e0e-4b47-8265-53ff9d8f388e.jfif" alt="Ермолович Анна">
+            <h3>Ермолович Анна</h3>
+            <p class="role">21 год, стаж 3 года</p>
+            <div class="description">
+              Пришла работать в 2023 году на кассу, со времени доросла до менеджера доставки. Потом перешла работать на Кутузова, ушла работать в другую компанию. Но поняла, что лучше Грильницы ничего нет и вернулась назад на Мартынова. Веселая, трудолюбивая, отзывчивая.
+            </div>
+            <div class="quote">
+              «Люблю грильницу за её открытость, за отношение к сотрудникам, люблю наш ресторан, люблю радовать наших гостей»
+            </div>
+          </div>
+
+        </div>
+        <button class="carousel-btn carousel-btn-next" onclick="nextSlide(1)">›</button>
+      </div>
+      <div class="carousel-dots" id="dots-1"></div>
+    </div>
+
+    <!-- Остальные рестораны добавлю в index.html -->
+
+  </div>
+</section>
+
+<script>
+const carousels = {};
+
+function initCarousel(restaurantId, count) {
+  carousels[restaurantId] = { current: 0, total: count };
+
+  const dotsContainer = document.getElementById(`dots-${restaurantId}`);
+  for (let i = 0; i < count; i++) {
+    const dot = document.createElement('span');
+    dot.className = `carousel-dot ${i === 0 ? 'active' : ''}`;
+    dot.onclick = () => goToSlide(restaurantId, i);
+    dotsContainer.appendChild(dot);
+  }
+
+  updateCarousel(restaurantId);
+}
+
+function updateCarousel(restaurantId) {
+  const { current } = carousels[restaurantId];
+  const track = document.getElementById(`track-${restaurantId}`);
+  const dots = document.querySelectorAll(`#dots-${restaurantId} .carousel-dot`);
+
+  track.style.transform = `translateX(-${current * 100}%)`;
+  dots.forEach((dot, i) => dot.classList.toggle('active', i === current));
+}
+
+function nextSlide(restaurantId) {
+  const carousel = carousels[restaurantId];
+  carousel.current = (carousel.current + 1) % carousel.total;
+  updateCarousel(restaurantId);
+}
+
+function prevSlide(restaurantId) {
+  const carousel = carousels[restaurantId];
+  carousel.current = (carousel.current - 1 + carousel.total) % carousel.total;
+  updateCarousel(restaurantId);
+}
+
+function goToSlide(restaurantId, index) {
+  carousels[restaurantId].current = index;
+  updateCarousel(restaurantId);
+}
+
+// Инициализация после загрузки
+window.addEventListener('DOMContentLoaded', () => {
+  initCarousel(1, 2);  // Мартынова - 2 человека
+  // Остальные рестораны инициализируются аналогично
+});
+</script>
