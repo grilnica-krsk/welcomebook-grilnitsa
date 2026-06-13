@@ -1611,7 +1611,6 @@ html, body {
       <div class="qr-block">
         <div class="qr-label">QR-код на эту книгу</div>
         <div id="qrcode"></div>
-        <div class="qr-url" id="qr-url-label">yoursite.com/welcomebook</div>
       </div>
       <div class="hr-contact">
         <p>Всегда рада тебя слушать</p>
@@ -1689,7 +1688,6 @@ html, body {
 
   // QR Code - ВАЖНО: Обновить URL после публикации на GitHub Pages
   const bookURL = 'https://grilnica-krsk.github.io/welcomebook-grilnitsa/wb-4c2e0a519df3/?h=0f397b43a550f3754b05b276f25cb9bf92ff1ae80c054ff7ff0bff9da44089cf';
-  document.getElementById('qr-url-label').textContent = bookURL;
   new QRCode(document.getElementById('qrcode'), {
     text: bookURL,
     width: 160,
