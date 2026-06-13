@@ -1,0 +1,235 @@
+  <!-- PAGE 5: ВСЯ КОМАНДА -->
+  <section class="page slide-right" id="p5">
+    <div class="p1-hero-strip"></div>
+    <div class="section-header">
+      <div class="section-label">Мы вместе</div>
+      <div class="section-title">Вся<br>команда</div>
+      <div class="accent-bar"></div>
+    </div>
+
+    <style>
+      /* Базовые стили для десктопа - СЕТКА */
+      .restaurant-section {
+        margin-bottom: 32px;
+      }
+      .restaurant-title {
+        color: var(--orange-dark);
+        font-size: 17px;
+        font-weight: 700;
+        margin: 0 0 16px 0;
+        padding: 10px 16px;
+        background: linear-gradient(135deg, rgba(232, 83, 10, 0.15), rgba(232, 83, 10, 0.05));
+        border-left: 4px solid var(--orange);
+        border-radius: 4px;
+      }
+
+      /* ДЕСКТОП - СЕТКА */
+      .employee-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 20px;
+      }
+
+      .employee-card {
+        background: linear-gradient(135deg, #ffffff, #fcfcfc);
+        border-radius: 12px;
+        padding: 16px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+
+      .employee-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 6px 20px rgba(232, 83, 10, 0.15);
+      }
+
+      .employee-card img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin: 0 auto 12px;
+        display: block;
+        border: 3px solid rgba(232, 83, 10, 0.1);
+      }
+
+      .employee-card h3 {
+        color: var(--orange-dark);
+        font-size: 16px;
+        margin: 0 0 6px;
+        text-align: center;
+        font-weight: 700;
+      }
+
+      .employee-card .role {
+        color: var(--text-muted);
+        font-size: 12px;
+        text-align: center;
+        margin-bottom: 12px;
+        font-weight: 500;
+      }
+
+      .employee-card .description {
+        color: var(--text);
+        font-size: 12px;
+        line-height: 1.6;
+        margin-bottom: 10px;
+        text-align: justify;
+      }
+
+      .employee-card .quote {
+        color: var(--orange);
+        font-style: italic;
+        font-size: 11px;
+        padding: 8px 10px;
+        background: rgba(232, 83, 10, 0.06);
+        border-left: 3px solid var(--orange);
+        margin-top: 10px;
+        border-radius: 0 6px 6px 0;
+      }
+
+      /* МОБИЛЬНАЯ - КАРУСЕЛЬ (скрыта на десктопе) */
+      .carousel-container {
+        display: none;
+      }
+
+      /* Адаптация для планшетов и мобильных */
+      @media (max-width: 768px) {
+        /* Скрываем сетку */
+        .employee-grid {
+          display: none;
+        }
+
+        /* Показываем карусель */
+        .carousel-container {
+          display: block;
+          position: relative;
+          overflow: hidden;
+          padding: 0 40px;
+        }
+
+        .carousel-track {
+          display: flex;
+          transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .carousel-card {
+          min-width: 100%;
+          background: linear-gradient(135deg, #ffffff, #fcfcfc);
+          border-radius: 16px;
+          padding: 20px;
+          box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        }
+
+        .carousel-card img {
+          width: 120px;
+          height: 120px;
+          border-radius: 50%;
+          object-fit: cover;
+          margin: 0 auto 14px;
+          display: block;
+          border: 4px solid rgba(232, 83, 10, 0.1);
+        }
+
+        .carousel-card h3 {
+          color: var(--orange-dark);
+          font-size: 18px;
+          margin: 0 0 6px;
+          text-align: center;
+          font-weight: 700;
+        }
+
+        .carousel-card .role {
+          color: var(--text-muted);
+          font-size: 13px;
+          text-align: center;
+          margin-bottom: 14px;
+          font-weight: 500;
+        }
+
+        .carousel-card .description {
+          color: var(--text);
+          font-size: 13px;
+          line-height: 1.7;
+          margin-bottom: 14px;
+          text-align: justify;
+        }
+
+        .carousel-card .quote {
+          color: var(--orange);
+          font-style: italic;
+          font-size: 12px;
+          padding: 10px 14px;
+          background: rgba(232, 83, 10, 0.06);
+          border-left: 3px solid var(--orange);
+          margin-top: 14px;
+          border-radius: 0 8px 8px 0;
+        }
+
+        .carousel-btn {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          background: var(--orange);
+          color: #fff;
+          border: none;
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          font-size: 20px;
+          cursor: pointer;
+          z-index: 10;
+          box-shadow: 0 4px 12px rgba(232, 83, 10, 0.3);
+        }
+
+        .carousel-btn-prev { left: 0; }
+        .carousel-btn-next { right: 0; }
+
+        .carousel-dots {
+          text-align: center;
+          margin-top: 12px;
+        }
+
+        .carousel-dot {
+          display: inline-block;
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: #ddd;
+          margin: 0 4px;
+          cursor: pointer;
+          transition: all 0.3s;
+        }
+
+        .carousel-dot.active {
+          background: var(--orange);
+          transform: scale(1.3);
+        }
+      }
+
+      @media (max-width: 480px) {
+        .carousel-container {
+          padding: 0 32px;
+        }
+        .carousel-card {
+          padding: 16px;
+        }
+        .carousel-card img {
+          width: 100px;
+          height: 100px;
+        }
+        .carousel-card h3 {
+          font-size: 16px;
+        }
+        .carousel-card .description {
+          font-size: 12px;
+        }
+        .carousel-btn {
+          width: 30px;
+          height: 30px;
+          font-size: 18px;
+        }
+      }
+    </style>
+
+    <div style="overflow-y: auto; max-height: 70vh; padding: 20px;">

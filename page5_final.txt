@@ -1,0 +1,705 @@
+  <!-- PAGE 5: ВСЯ КОМАНДА -->
+  <section class="page slide-right" id="p5">
+    <div class="p1-hero-strip"></div>
+    <div class="section-header">
+      <div class="section-label">Мы вместе</div>
+      <div class="section-title">Вся<br>команда</div>
+      <div class="accent-bar"></div>
+    </div>
+
+    <style>
+      /* Базовые стили для десктопа - СЕТКА */
+      .restaurant-section {
+        margin-bottom: 32px;
+      }
+      .restaurant-title {
+        color: var(--orange-dark);
+        font-size: 17px;
+        font-weight: 700;
+        margin: 0 0 16px 0;
+        padding: 10px 16px;
+        background: linear-gradient(135deg, rgba(232, 83, 10, 0.15), rgba(232, 83, 10, 0.05));
+        border-left: 4px solid var(--orange);
+        border-radius: 4px;
+      }
+
+      /* ДЕСКТОП - СЕТКА */
+      .employee-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 20px;
+      }
+
+      .employee-card {
+        background: linear-gradient(135deg, #ffffff, #fcfcfc);
+        border-radius: 12px;
+        padding: 16px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+
+      .employee-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 6px 20px rgba(232, 83, 10, 0.15);
+      }
+
+      .employee-card img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin: 0 auto 12px;
+        display: block;
+        border: 3px solid rgba(232, 83, 10, 0.1);
+      }
+
+      .employee-card h3 {
+        color: var(--orange-dark);
+        font-size: 16px;
+        margin: 0 0 6px;
+        text-align: center;
+        font-weight: 700;
+      }
+
+      .employee-card .role {
+        color: var(--text-muted);
+        font-size: 12px;
+        text-align: center;
+        margin-bottom: 12px;
+        font-weight: 500;
+      }
+
+      .employee-card .description {
+        color: var(--text);
+        font-size: 12px;
+        line-height: 1.6;
+        margin-bottom: 10px;
+        text-align: justify;
+      }
+
+      .employee-card .quote {
+        color: var(--orange);
+        font-style: italic;
+        font-size: 11px;
+        padding: 8px 10px;
+        background: rgba(232, 83, 10, 0.06);
+        border-left: 3px solid var(--orange);
+        margin-top: 10px;
+        border-radius: 0 6px 6px 0;
+      }
+
+      /* МОБИЛЬНАЯ - КАРУСЕЛЬ (скрыта на десктопе) */
+      .carousel-container {
+        display: none;
+      }
+
+      /* Адаптация для планшетов и мобильных */
+      @media (max-width: 768px) {
+        /* Скрываем сетку */
+        .employee-grid {
+          display: none;
+        }
+
+        /* Показываем карусель */
+        .carousel-container {
+          display: block;
+          position: relative;
+          overflow: hidden;
+          padding: 0 40px;
+        }
+
+        .carousel-track {
+          display: flex;
+          transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .carousel-card {
+          min-width: 100%;
+          background: linear-gradient(135deg, #ffffff, #fcfcfc);
+          border-radius: 16px;
+          padding: 20px;
+          box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        }
+
+        .carousel-card img {
+          width: 120px;
+          height: 120px;
+          border-radius: 50%;
+          object-fit: cover;
+          margin: 0 auto 14px;
+          display: block;
+          border: 4px solid rgba(232, 83, 10, 0.1);
+        }
+
+        .carousel-card h3 {
+          color: var(--orange-dark);
+          font-size: 18px;
+          margin: 0 0 6px;
+          text-align: center;
+          font-weight: 700;
+        }
+
+        .carousel-card .role {
+          color: var(--text-muted);
+          font-size: 13px;
+          text-align: center;
+          margin-bottom: 14px;
+          font-weight: 500;
+        }
+
+        .carousel-card .description {
+          color: var(--text);
+          font-size: 13px;
+          line-height: 1.7;
+          margin-bottom: 14px;
+          text-align: justify;
+        }
+
+        .carousel-card .quote {
+          color: var(--orange);
+          font-style: italic;
+          font-size: 12px;
+          padding: 10px 14px;
+          background: rgba(232, 83, 10, 0.06);
+          border-left: 3px solid var(--orange);
+          margin-top: 14px;
+          border-radius: 0 8px 8px 0;
+        }
+
+        .carousel-btn {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          background: var(--orange);
+          color: #fff;
+          border: none;
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          font-size: 20px;
+          cursor: pointer;
+          z-index: 10;
+          box-shadow: 0 4px 12px rgba(232, 83, 10, 0.3);
+        }
+
+        .carousel-btn-prev { left: 0; }
+        .carousel-btn-next { right: 0; }
+
+        .carousel-dots {
+          text-align: center;
+          margin-top: 12px;
+        }
+
+        .carousel-dot {
+          display: inline-block;
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: #ddd;
+          margin: 0 4px;
+          cursor: pointer;
+          transition: all 0.3s;
+        }
+
+        .carousel-dot.active {
+          background: var(--orange);
+          transform: scale(1.3);
+        }
+      }
+
+      @media (max-width: 480px) {
+        .carousel-container {
+          padding: 0 32px;
+        }
+        .carousel-card {
+          padding: 16px;
+        }
+        .carousel-card img {
+          width: 100px;
+          height: 100px;
+        }
+        .carousel-card h3 {
+          font-size: 16px;
+        }
+        .carousel-card .description {
+          font-size: 12px;
+        }
+        .carousel-btn {
+          width: 30px;
+          height: 30px;
+          font-size: 18px;
+        }
+      }
+    </style>
+
+    <div style="overflow-y: auto; max-height: 70vh; padding: 20px;">
+
+      <!-- Ресторан Мартынова 22 -->
+      <div class="restaurant-section">
+        <h2 class="restaurant-title">🏠 Ресторан Мартынова 22</h2>
+
+        <!-- Десктопная версия - СЕТКА -->
+        <div class="employee-grid">
+          <div class="employee-card">
+            <img src="photos/242b6b22-1657-476b-bc42-24d2fb44d106.jfif" alt="Киреева Алиса">
+            <h3>Киреева Алиса</h3>
+            <p class="role">22 года, стаж 3 года</p>
+            <div class="description">Пришла менеджером доставки на Мира, потом перешла на Мартынова. Позитивная, всегда готова помочь, заряжает своей энергией!</div>
+            <div class="quote">«Нравится отношения руководства к персоналу, дружелюбный коллектив, хорошая оплата труда. Люблю Грильницу!»</div>
+          </div>
+          <div class="employee-card">
+            <img src="photos/4c120d19-9e0e-4b47-8265-53ff9d8f388e.jfif" alt="Ермолович Анна">
+            <h3>Ермолович Анна</h3>
+            <p class="role">21 год, стаж 3 года</p>
+            <div class="description">Пришла работать в 2023 году на кассу, со времени доросла до менеджера доставки. Потом перешла работать на Кутузова, ушла работать в другую компанию. Но поняла, что лучше Грильницы ничего нет и вернулась назад на Мартынова. Веселая, трудолюбивая, отзывчивая.</div>
+            <div class="quote">«Люблю грильницу за её открытость, за отношение к сотрудникам, люблю наш ресторан, люблю радовать наших гостей»</div>
+          </div>
+        </div>
+
+        <!-- Мобильная версия - КАРУСЕЛЬ -->
+        <div class="carousel-container">
+          <button class="carousel-btn carousel-btn-prev" onclick="prevSlide(1)">‹</button>
+          <div class="carousel-track" id="track-1">
+            <div class="carousel-card">
+              <img src="photos/242b6b22-1657-476b-bc42-24d2fb44d106.jfif" alt="Киреева Алиса">
+              <h3>Киреева Алиса</h3>
+              <p class="role">22 года, стаж 3 года</p>
+              <div class="description">Пришла менеджером доставки на Мира, потом перешла на Мартынова. Позитивная, всегда готова помочь, заряжает своей энергией!</div>
+              <div class="quote">«Нравится отношения руководства к персоналу, дружелюбный коллектив, хорошая оплата труда. Люблю Грильницу!»</div>
+            </div>
+            <div class="carousel-card">
+              <img src="photos/4c120d19-9e0e-4b47-8265-53ff9d8f388e.jfif" alt="Ермолович Анна">
+              <h3>Ермолович Анна</h3>
+              <p class="role">21 год, стаж 3 года</p>
+              <div class="description">Пришла работать в 2023 году на кассу, со времени доросла до менеджера доставки. Потом перешла работать на Кутузова, ушла работать в другую компанию. Но поняла, что лучше Грильницы ничего нет и вернулась назад на Мартынова. Веселая, трудолюбивая, отзывчивая.</div>
+              <div class="quote">«Люблю грильницу за её открытость, за отношение к сотрудникам, люблю наш ресторан, люблю радовать наших гостей»</div>
+            </div>
+          </div>
+          <button class="carousel-btn carousel-btn-next" onclick="nextSlide(1)">›</button>
+        </div>
+        <div class="carousel-dots" id="dots-1"></div>
+      </div>
+
+
+      <!-- Ресторан Красноярский рабочий 87 -->
+      <div class="restaurant-section">
+        <h2 class="restaurant-title">🏠 Ресторан Красноярский рабочий 87</h2>
+
+        <!-- Десктопная версия - СЕТКА -->
+        <div class="employee-grid">
+          <div class="employee-card">
+            <img src="photos/2c69f172-5b4f-4dc9-becd-090099f463c6.jfif" alt="Суксин Дмитрий Юрьевич">
+            <h3>Суксин Дмитрий Юрьевич</h3>
+            <p class="role">31 год, управляющий, стаж 2 года</p>
+            <div class="description">Управляющий рестораном Красноярский рабочий 87. Лидер команды, ответственный за все процессы в ресторане.</div>
+          </div>
+          <div class="employee-card">
+            <img src="photos/6df8af7d-1f70-48fe-a7b0-b90d5f3cdcb9.jfif" alt="Кылычбек кызы Элиза">
+            <h3>Кылычбек кызы Элиза</h3>
+            <p class="role">30 лет, стаж 5 лет</p>
+            <div class="description">Одна из опытнейших сотрудников ресторана. Профессионал своего дела, наставник для новичков.</div>
+          </div>
+          <div class="employee-card">
+            <img src="photos/10dcacd1-8678-4903-be80-97c0eb1a4a58.jfif" alt="Каблукова Анастасия Владимировна">
+            <h3>Каблукова Анастасия Владимировна</h3>
+            <p class="role">18 лет, стаж 2 года</p>
+            <div class="description">За время работы в компании достигла должности менеджера смены, начиная с кассира. На моем пути мне встретились прекрасные коллеги, которые помогли мне добиться отличных результатов и поделились с мной большим опытом!</div>
+          </div>
+          <div class="employee-card">
+            <img src="photos/1d943e78-33c0-4356-9f8f-a4a64046523e.jfif" alt="Кузьмина Виктория Александровна">
+            <h3>Кузьмина Виктория Александровна</h3>
+            <p class="role">31 год, стаж 4 года</p>
+            <div class="description">В компанию пришла работать пиццером, постепенно обучилась работать на всех станциях, стала старшим поваром. Добрая, отзывчивая, терпеливая, целеустремленная, ответственная.</div>
+            <div class="quote">«Моя команда лучшая мы вместе развиваемся и делаем показатели»</div>
+          </div>
+        </div>
+
+        <!-- Мобильная версия - КАРУСЕЛЬ -->
+        <div class="carousel-container">
+          <button class="carousel-btn carousel-btn-prev" onclick="prevSlide(2)">‹</button>
+          <div class="carousel-track" id="track-2">
+            <div class="carousel-card">
+              <img src="photos/2c69f172-5b4f-4dc9-becd-090099f463c6.jfif" alt="Суксин Дмитрий Юрьевич">
+              <h3>Суксин Дмитрий Юрьевич</h3>
+              <p class="role">31 год, управляющий, стаж 2 года</p>
+              <div class="description">Управляющий рестораном Красноярский рабочий 87. Лидер команды, ответственный за все процессы в ресторане.</div>
+            </div>
+            <div class="carousel-card">
+              <img src="photos/6df8af7d-1f70-48fe-a7b0-b90d5f3cdcb9.jfif" alt="Кылычбек кызы Элиза">
+              <h3>Кылычбек кызы Элиза</h3>
+              <p class="role">30 лет, стаж 5 лет</p>
+              <div class="description">Одна из опытнейших сотрудников ресторана. Профессионал своего дела, наставник для новичков.</div>
+            </div>
+            <div class="carousel-card">
+              <img src="photos/10dcacd1-8678-4903-be80-97c0eb1a4a58.jfif" alt="Каблукова Анастасия Владимировна">
+              <h3>Каблукова Анастасия Владимировна</h3>
+              <p class="role">18 лет, стаж 2 года</p>
+              <div class="description">За время работы в компании достигла должности менеджера смены, начиная с кассира. На моем пути мне встретились прекрасные коллеги, которые помогли мне добиться отличных результатов и поделились с мной большим опытом!</div>
+            </div>
+            <div class="carousel-card">
+              <img src="photos/1d943e78-33c0-4356-9f8f-a4a64046523e.jfif" alt="Кузьмина Виктория Александровна">
+              <h3>Кузьмина Виктория Александровна</h3>
+              <p class="role">31 год, стаж 4 года</p>
+              <div class="description">В компанию пришла работать пиццером, постепенно обучилась работать на всех станциях, стала старшим поваром. Добрая, отзывчивая, терпеливая, целеустремленная, ответственная.</div>
+              <div class="quote">«Моя команда лучшая мы вместе развиваемся и делаем показатели»</div>
+            </div>
+          </div>
+          <button class="carousel-btn carousel-btn-next" onclick="nextSlide(2)">›</button>
+        </div>
+        <div class="carousel-dots" id="dots-2"></div>
+      </div>
+
+
+      <!-- Ресторан Вильского 26/1 -->
+      <div class="restaurant-section">
+        <h2 class="restaurant-title">🏠 Ресторан Вильского 26/1</h2>
+
+        <!-- Десктопная версия - СЕТКА -->
+        <div class="employee-grid">
+          <div class="employee-card">
+            <img src="photos/fb60fe86-67b8-41f2-ba3e-9f07c3d8f0b3.jfif" alt="Ахмеджанова Диана">
+            <h3>Ахмеджанова Диана</h3>
+            <p class="role">26 лет, управляющая, стаж 5 лет</p>
+            <div class="description">Управляющая рестораном Вильского 26/1. Опытный руководитель с пятилетним стажем работы в компании.</div>
+          </div>
+          <div class="employee-card">
+            <img src="photos/26ce7279-8034-4361-a272-0a244e9ac1c5.jfif" alt="Ахмеджанова Дарья">
+            <h3>Ахмеджанова Дарья</h3>
+            <p class="role">23 года, стаж 5 лет</p>
+            <div class="description">Опытный сотрудник ресторана с пятилетним стажем. Профессионал в своем деле.</div>
+          </div>
+          <div class="employee-card">
+            <img src="photos/acfd316e-2d8a-4bd7-abed-3a18b0d559cc.jfif" alt="Абдуллаева Дилфуза">
+            <h3>Абдуллаева Дилфуза</h3>
+            <p class="role">28 лет, стаж 5 лет</p>
+            <div class="description">Пришла в апреле 2021 года. Карьера: уборщица → холодный цех → повар шаурмы → повар универсала (2023). Замечательный пример карьерного роста в компании!</div>
+            <div class="quote">«Мне нравится здесь работать потому что хорошая команда, есть карьерный рост, хорошее отношение компании к сотрудникам»</div>
+          </div>
+          <div class="employee-card">
+            <img src="photos/15a774b3-0103-48c5-8d30-cb6685bf324b.jfif" alt="Давыдов Денис">
+            <h3>Давыдов Денис</h3>
+            <p class="role">18 лет, стаж 2 года</p>
+            <div class="description">Начал работать в Грильнице в 2023 году, когда ему было 16. Карьера: кассир → менеджер доставки → кухня повар гриль/шаурмы → освоил станцию яблоний. Очень добрый, отзывчивый, трудолюбивый человек.</div>
+            <div class="quote">«Мне нравится работать в грильнице, потому что здесь классный коллектив»</div>
+          </div>
+          <div class="employee-card">
+            <img src="photos/f2676e70-ce61-4440-8275-503b5bdc854c.jfif" alt="Моложникова Маргарита">
+            <h3>Моложникова Маргарита</h3>
+            <p class="role">19 лет, стаж 1,5 года</p>
+            <div class="description">Пришла работать в 2024 году на должность кассира. В 2025 году доросла до должности старший кассир. Целеустремленная и ответственная, грамотно и уверенно презентует скрипт кассира.</div>
+            <div class="quote">«Мне нравится работать в Грильнице, здесь хорошая перспектива карьерного роста, классная команда»</div>
+          </div>
+          <div class="employee-card">
+            <img src="photos/19931cdf-6314-4d8e-bf02-f4894160dede.jfif" alt="Гайс Дана">
+            <h3>Гайс Дана</h3>
+            <p class="role">28 лет, стаж 4,5 года</p>
+            <div class="description">Пришла в компанию в 2022 году на должность кассира. В первый же день стажировки оценили сообразительность, предложили должность менеджера доставки. К концу 2022 года доросла до должности менеджера смены. Упорство, лидерство, невероятная харизма!</div>
+            <div class="quote">«Люблю работать в Грильнице, потому что здесь можно развиваться, нравится выполнять все показатели, и команда стала для меня семьей!»</div>
+          </div>
+          <div class="employee-card">
+            <img src="photos/7b5adac1-ddef-410f-9440-12be3759b45d.jfif" alt="Исмаилова Татьяна">
+            <h3>Исмаилова Татьяна</h3>
+            <p class="role">66 лет, стаж 3 года</p>
+            <div class="description">Пришла в компанию в 2023 году на должность повара холодного цеха. В 2025 году освоила станцию гриль. В начале этого года освоила станцию шаурмы. Очень любит станцию холодного цеха, наладила логистику заготовок на всех станциях. Трудолюбивая, добрая, открытая.</div>
+            <div class="quote">«Команда - огонь, все слаженно, работаем добросовестно. Компания всегда идет на встречу, нет не решаемых вопросов. Мы не стоим на месте, все лучше и лучше. Спасибо Грильница, мы лучшие, компания № 1»</div>
+          </div>
+          <div class="employee-card">
+            <img src="photos/b90a33ec-1c60-4a33-bb7f-4eb73d34951c.jfif" alt="Козлова Татьяна">
+            <h3>Козлова Татьяна</h3>
+            <p class="role">51 год, стаж 5 лет</p>
+            <div class="description">В 2021 года пришла на должность фей чистоты и по сей день наводит порядок и уют. Открытая, добрая, веселая и чистолюбивая, что очень помогает в её работе.</div>
+            <div class="quote">«Мне нравится работать в Грильнице, потому что здесь самая лучшая команда. Живу близко к работе, все удобства для работы всегда предоставляют»</div>
+          </div>
+        </div>
+
+        <!-- Мобильная версия - КАРУСЕЛЬ -->
+        <div class="carousel-container">
+          <button class="carousel-btn carousel-btn-prev" onclick="prevSlide(3)">‹</button>
+          <div class="carousel-track" id="track-3">
+            <div class="carousel-card">
+              <img src="photos/fb60fe86-67b8-41f2-ba3e-9f07c3d8f0b3.jfif" alt="Ахмеджанова Диана">
+              <h3>Ахмеджанова Диана</h3>
+              <p class="role">26 лет, управляющая, стаж 5 лет</p>
+              <div class="description">Управляющая рестораном Вильского 26/1. Опытный руководитель с пятилетним стажем работы в компании.</div>
+            </div>
+            <div class="carousel-card">
+              <img src="photos/26ce7279-8034-4361-a272-0a244e9ac1c5.jfif" alt="Ахмеджанова Дарья">
+              <h3>Ахмеджанова Дарья</h3>
+              <p class="role">23 года, стаж 5 лет</p>
+              <div class="description">Опытный сотрудник ресторана с пятилетним стажем. Профессионал в своем деле.</div>
+            </div>
+            <div class="carousel-card">
+              <img src="photos/acfd316e-2d8a-4bd7-abed-3a18b0d559cc.jfif" alt="Абдуллаева Дилфуза">
+              <h3>Абдуллаева Дилфуза</h3>
+              <p class="role">28 лет, стаж 5 лет</p>
+              <div class="description">Пришла в апреле 2021 года. Карьера: уборщица → холодный цех → повар шаурмы → повар универсала (2023). Замечательный пример карьерного роста в компании!</div>
+              <div class="quote">«Мне нравится здесь работать потому что хорошая команда, есть карьерный рост, хорошее отношение компании к сотрудникам»</div>
+            </div>
+            <div class="carousel-card">
+              <img src="photos/15a774b3-0103-48c5-8d30-cb6685bf324b.jfif" alt="Давыдов Денис">
+              <h3>Давыдов Денис</h3>
+              <p class="role">18 лет, стаж 2 года</p>
+              <div class="description">Начал работать в Грильнице в 2023 году, когда ему было 16. Карьера: кассир → менеджер доставки → кухня повар гриль/шаурмы → освоил станцию яблоний. Очень добрый, отзывчивый, трудолюбивый человек.</div>
+              <div class="quote">«Мне нравится работать в грильнице, потому что здесь классный коллектив»</div>
+            </div>
+            <div class="carousel-card">
+              <img src="photos/f2676e70-ce61-4440-8275-503b5bdc854c.jfif" alt="Моложникова Маргарита">
+              <h3>Моложникова Маргарита</h3>
+              <p class="role">19 лет, стаж 1,5 года</p>
+              <div class="description">Пришла работать в 2024 году на должность кассира. В 2025 году доросла до должности старший кассир. Целеустремленная и ответственная, грамотно и уверенно презентует скрипт кассира.</div>
+              <div class="quote">«Мне нравится работать в Грильнице, здесь хорошая перспектива карьерного роста, классная команда»</div>
+            </div>
+            <div class="carousel-card">
+              <img src="photos/19931cdf-6314-4d8e-bf02-f4894160dede.jfif" alt="Гайс Дана">
+              <h3>Гайс Дана</h3>
+              <p class="role">28 лет, стаж 4,5 года</p>
+              <div class="description">Пришла в компанию в 2022 году на должность кассира. В первый же день стажировки оценили сообразительность, предложили должность менеджера доставки. К концу 2022 года доросла до должности менеджера смены. Упорство, лидерство, невероятная харизма!</div>
+              <div class="quote">«Люблю работать в Грильнице, потому что здесь можно развиваться, нравится выполнять все показатели, и команда стала для меня семьей!»</div>
+            </div>
+            <div class="carousel-card">
+              <img src="photos/7b5adac1-ddef-410f-9440-12be3759b45d.jfif" alt="Исмаилова Татьяна">
+              <h3>Исмаилова Татьяна</h3>
+              <p class="role">66 лет, стаж 3 года</p>
+              <div class="description">Пришла в компанию в 2023 году на должность повара холодного цеха. В 2025 году освоила станцию гриль. В начале этого года освоила станцию шаурмы. Очень любит станцию холодного цеха, наладила логистику заготовок на всех станциях. Трудолюбивая, добрая, открытая.</div>
+              <div class="quote">«Команда - огонь, все слаженно, работаем добросовестно. Компания всегда идет на встречу, нет не решаемых вопросов. Мы не стоим на месте, все лучше и лучше. Спасибо Грильница, мы лучшие, компания № 1»</div>
+            </div>
+            <div class="carousel-card">
+              <img src="photos/b90a33ec-1c60-4a33-bb7f-4eb73d34951c.jfif" alt="Козлова Татьяна">
+              <h3>Козлова Татьяна</h3>
+              <p class="role">51 год, стаж 5 лет</p>
+              <div class="description">В 2021 года пришла на должность фей чистоты и по сей день наводит порядок и уют. Открытая, добрая, веселая и чистолюбивая, что очень помогает в её работе.</div>
+              <div class="quote">«Мне нравится работать в Грильнице, потому что здесь самая лучшая команда. Живу близко к работе, все удобства для работы всегда предоставляют»</div>
+            </div>
+          </div>
+          <button class="carousel-btn carousel-btn-next" onclick="nextSlide(3)">›</button>
+        </div>
+        <div class="carousel-dots" id="dots-3"></div>
+      </div>
+
+
+      <!-- Ресторан Металлургов 53 -->
+      <div class="restaurant-section">
+        <h2 class="restaurant-title">🏠 Ресторан Металлургов 53</h2>
+
+        <!-- Десктопная версия - СЕТКА -->
+        <div class="employee-grid">
+          <div class="employee-card">
+            <img src="photos/db870c32-1930-48fd-b6a6-e216c9480ac0.jfif" alt="Миракшев Тойир">
+            <h3>Миракшев Тойир</h3>
+            <p class="role">21 год, стаж 2,5 года</p>
+            <div class="description">Начал работать поваром, постепенно обучился до универсала и стал Старшим поваром. Ответственный сотрудник работающий на результат.</div>
+          </div>
+          <div class="employee-card">
+            <img src="photos/ebb79be9-4e8e-4209-b4e1-dea9c4d0fb97.jfif" alt="Бобоколонова Рахима">
+            <h3>Бобоколонова Рахима</h3>
+            <p class="role">36 лет</p>
+            <div class="description">Пришла работать в Грильницу уборщицей, дальше повысили её до повара пиццы, она научилась всем станциям и уже в 2025 году стала Старшим поваром.</div>
+            <div class="quote">«Терпение и труд - все перетрут»</div>
+          </div>
+          <div class="employee-card">
+            <img src="photos/92fcc065-e0a2-49f9-b36f-eecf22b280ce.jfif" alt="Чувичкина Ангелина">
+            <h3>Чувичкина Ангелина</h3>
+            <p class="role">22 года, стаж 2,5 года</p>
+            <div class="description">Пришла работать кассиром, за годы доросла до Менеджера смены.</div>
+            <div class="quote">«Не все в курсе, но, оказывается, можно иметь работу своей мечты»</div>
+          </div>
+          <div class="employee-card">
+            <img src="photos/00e9a787-2b4d-452c-988a-7f7f6d41d361.jfif" alt="Баган Елизавета">
+            <h3>Баган Елизавета</h3>
+            <p class="role">21 год, стаж 4 года</p>
+            <div class="description">Пришла работать кассиром, доросла до менеджера доставки в 2024 году, и стала Менеджером Смены в 2025 году.</div>
+            <div class="quote">«Там где твой труд ценят, работать легко»</div>
+          </div>
+        </div>
+
+        <!-- Мобильная версия - КАРУСЕЛЬ -->
+        <div class="carousel-container">
+          <button class="carousel-btn carousel-btn-prev" onclick="prevSlide(4)">‹</button>
+          <div class="carousel-track" id="track-4">
+            <div class="carousel-card">
+              <img src="photos/db870c32-1930-48fd-b6a6-e216c9480ac0.jfif" alt="Миракшев Тойир">
+              <h3>Миракшев Тойир</h3>
+              <p class="role">21 год, стаж 2,5 года</p>
+              <div class="description">Начал работать поваром, постепенно обучился до универсала и стал Старшим поваром. Ответственный сотрудник работающий на результат.</div>
+            </div>
+            <div class="carousel-card">
+              <img src="photos/ebb79be9-4e8e-4209-b4e1-dea9c4d0fb97.jfif" alt="Бобоколонова Рахима">
+              <h3>Бобоколонова Рахима</h3>
+              <p class="role">36 лет</p>
+              <div class="description">Пришла работать в Грильницу уборщицей, дальше повысили её до повара пиццы, она научилась всем станциям и уже в 2025 году стала Старшим поваром.</div>
+              <div class="quote">«Терпение и труд - все перетрут»</div>
+            </div>
+            <div class="carousel-card">
+              <img src="photos/92fcc065-e0a2-49f9-b36f-eecf22b280ce.jfif" alt="Чувичкина Ангелина">
+              <h3>Чувичкина Ангелина</h3>
+              <p class="role">22 года, стаж 2,5 года</p>
+              <div class="description">Пришла работать кассиром, за годы доросла до Менеджера смены.</div>
+              <div class="quote">«Не все в курсе, но, оказывается, можно иметь работу своей мечты»</div>
+            </div>
+            <div class="carousel-card">
+              <img src="photos/00e9a787-2b4d-452c-988a-7f7f6d41d361.jfif" alt="Баган Елизавета">
+              <h3>Баган Елизавета</h3>
+              <p class="role">21 год, стаж 4 года</p>
+              <div class="description">Пришла работать кассиром, доросла до менеджера доставки в 2024 году, и стала Менеджером Смены в 2025 году.</div>
+              <div class="quote">«Там где твой труд ценят, работать легко»</div>
+            </div>
+          </div>
+          <button class="carousel-btn carousel-btn-next" onclick="nextSlide(4)">›</button>
+        </div>
+        <div class="carousel-dots" id="dots-4"></div>
+      </div>
+
+
+      <!-- Ресторан Кутузова 1/5 -->
+      <div class="restaurant-section">
+        <h2 class="restaurant-title">🏠 Ресторан Кутузова 1/5</h2>
+
+        <!-- Десктопная версия - СЕТКА -->
+        <div class="employee-grid">
+          <div class="employee-card">
+            <img src="photos/9305a58f-78ec-4efa-84d6-dc408181647c.jfif" alt="Липовцев Андрей">
+            <h3>Липовцев Андрей</h3>
+            <p class="role">Управляющий, стаж 2,5 года</p>
+            <div class="description">Управляющий рестораном Кутузова 1/5. Опытный руководитель, лидер команды.</div>
+          </div>
+          <div class="employee-card">
+            <img src="photos/a6255703-5173-479f-8acb-7f011efd3be3.jfif" alt="Филяева Александра">
+            <h3>Филяева Александра</h3>
+            <p class="role">Стаж 1,5 года</p>
+            <div class="description">Пришла в октябре 2024 года на кассира, через месяц ей предложили на менеджера доставки, через 3 месяца повысили до повара пиццера. Далее постепенно освоила все станции, в 2026 году доросла до повара универсала. Сейчас работает старшим поваром. Ответственная, любит смеяться, веселиться, рыбные котлеты на штат и вкладываться в работу ресторана.</div>
+            <div class="quote">«Мне нравится здесь работать потому что у нас самый лучший управляющий, есть карьерный рост, мы стали как одна семья»</div>
+          </div>
+          <div class="employee-card">
+            <img src="photos/1bb440b9-97f3-4121-997d-c7a3e94a12e6.jfif" alt="Урюпина Валерия">
+            <h3>Урюпина Валерия</h3>
+            <p class="role">Стаж 4 года</p>
+            <div class="description">Пришла 1 апреля 2022 года на сушиста на пару месяцев но так понравилось что осталась по сей день. Через время стала менеджером смены, так и пошло развитие в карьере и теплая привязанность к кухне и коллективу. Трудолюбивая, любит улыбаться.</div>
+            <div class="quote">«Очень атмосферный коллектив, хороший рост, интересные задачи, рада что попала именно сюда»</div>
+          </div>
+        </div>
+
+        <!-- Мобильная версия - КАРУСЕЛЬ -->
+        <div class="carousel-container">
+          <button class="carousel-btn carousel-btn-prev" onclick="prevSlide(5)">‹</button>
+          <div class="carousel-track" id="track-5">
+            <div class="carousel-card">
+              <img src="photos/9305a58f-78ec-4efa-84d6-dc408181647c.jfif" alt="Липовцев Андрей">
+              <h3>Липовцев Андрей</h3>
+              <p class="role">Управляющий, стаж 2,5 года</p>
+              <div class="description">Управляющий рестораном Кутузова 1/5. Опытный руководитель, лидер команды.</div>
+            </div>
+            <div class="carousel-card">
+              <img src="photos/a6255703-5173-479f-8acb-7f011efd3be3.jfif" alt="Филяева Александра">
+              <h3>Филяева Александра</h3>
+              <p class="role">Стаж 1,5 года</p>
+              <div class="description">Пришла в октябре 2024 года на кассира, через месяц ей предложили на менеджера доставки, через 3 месяца повысили до повара пиццера. Далее постепенно освоила все станции, в 2026 году доросла до повара универсала. Сейчас работает старшим поваром. Ответственная, любит смеяться, веселиться, рыбные котлеты на штат и вкладываться в работу ресторана.</div>
+              <div class="quote">«Мне нравится здесь работать потому что у нас самый лучший управляющий, есть карьерный рост, мы стали как одна семья»</div>
+            </div>
+            <div class="carousel-card">
+              <img src="photos/1bb440b9-97f3-4121-997d-c7a3e94a12e6.jfif" alt="Урюпина Валерия">
+              <h3>Урюпина Валерия</h3>
+              <p class="role">Стаж 4 года</p>
+              <div class="description">Пришла 1 апреля 2022 года на сушиста на пару месяцев но так понравилось что осталась по сей день. Через время стала менеджером смены, так и пошло развитие в карьере и теплая привязанность к кухне и коллективу. Трудолюбивая, любит улыбаться.</div>
+              <div class="quote">«Очень атмосферный коллектив, хороший рост, интересные задачи, рада что попала именно сюда»</div>
+            </div>
+          </div>
+          <button class="carousel-btn carousel-btn-next" onclick="nextSlide(5)">›</button>
+        </div>
+        <div class="carousel-dots" id="dots-5"></div>
+      </div>
+
+
+      <!-- Ресторан Судостроительная 52А -->
+      <div class="restaurant-section">
+        <h2 class="restaurant-title">🏠 Ресторан Судостроительная 52А</h2>
+
+        <!-- Десктопная версия - СЕТКА -->
+        <div class="employee-grid">
+          <div class="employee-card">
+            <img src="photos/baeab0bc-a04f-4018-9a67-800a271b77c9.jfif" alt="Крис (Полина)">
+            <h3>Крис (Полина)</h3>
+            <p class="role">Стаж 2,5 года</p>
+            <div class="description">Пришла 27 октября 2023 года по чистой случайности 😊 Когда только устроилась думала, что это только на пару месяцев, но в итоге меня затянуло на столько, что уже идёт третий год 😊 Я не жалею конечно, это место меня многому научило, а особенно выносливости (это я про запары и тяжебесие стажеров-думаю жиза 😊). Мне нравится мой коллектив, он интересный и очень весёлый:) О себе мне, наверное, нечего особо сказать об этом могут как раз рассказать именно мои коллеги, но думаю они бы точно сказали: "Крис у нас бука, но при этом очень мягкий человек, который никогда не откажет и всегда поможет, если надо. И когда есть время и возможность всегда покормит нас шаткой, которую мы просто обожаем!"</div>
+            <div class="quote">«Мне нравится работать в грильнице потому что работаю с самой лучшей управляющей, сама атмосфера общепита и прокачивать поварские навыки»</div>
+          </div>
+        </div>
+
+        <!-- Мобильная версия - КАРУСЕЛЬ -->
+        <div class="carousel-container">
+          <button class="carousel-btn carousel-btn-prev" onclick="prevSlide(6)">‹</button>
+          <div class="carousel-track" id="track-6">
+            <div class="carousel-card">
+              <img src="photos/baeab0bc-a04f-4018-9a67-800a271b77c9.jfif" alt="Крис (Полина)">
+              <h3>Крис (Полина)</h3>
+              <p class="role">Стаж 2,5 года</p>
+              <div class="description">Пришла 27 октября 2023 года по чистой случайности 😊 Когда только устроилась думала, что это только на пару месяцев, но в итоге меня затянуло на столько, что уже идёт третий год 😊 Я не жалею конечно, это место меня многому научило, а особенно выносливости (это я про запары и тяжебесие стажеров-думаю жиза 😊). Мне нравится мой коллектив, он интересный и очень весёлый:) О себе мне, наверное, нечего особо сказать об этом могут как раз рассказать именно мои коллеги, но думаю они бы точно сказали: "Крис у нас бука, но при этом очень мягкий человек, который никогда не откажет и всегда поможет, если надо. И когда есть время и возможность всегда покормит нас шаткой, которую мы просто обожаем!"</div>
+              <div class="quote">«Мне нравится работать в грильнице потому что работаю с самой лучшей управляющей, сама атмосфера общепита и прокачивать поварские навыки»</div>
+            </div>
+          </div>
+          <button class="carousel-btn carousel-btn-next" onclick="nextSlide(6)">›</button>
+        </div>
+        <div class="carousel-dots" id="dots-6"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <script>
+const carousels = {};
+
+function initCarousel(restaurantId, count) {
+  carousels[restaurantId] = { current: 0, total: count };
+  const dotsContainer = document.getElementById(`dots-${restaurantId}`);
+  if (!dotsContainer) return;
+  dotsContainer.innerHTML = "";
+  for (let i = 0; i < count; i++) {
+    const dot = document.createElement("span");
+    dot.className = `carousel-dot ${i === 0 ? "active" : ""}`;
+    dot.onclick = () => goToSlide(restaurantId, i);
+    dotsContainer.appendChild(dot);
+  }
+  updateCarousel(restaurantId);
+}
+
+function updateCarousel(restaurantId) {
+  const carousel = carousels[restaurantId];
+  if (!carousel) return;
+  const { current } = carousel;
+  const track = document.getElementById(`track-${restaurantId}`);
+  const dots = document.querySelectorAll(`#dots-${restaurantId} .carousel-dot`);
+  if (track) track.style.transform = `translateX(-${current * 100}%)`;
+  dots.forEach((dot, i) => dot.classList.toggle("active", i === current));
+}
+
+function nextSlide(restaurantId) {
+  const carousel = carousels[restaurantId];
+  if (!carousel) return;
+  carousel.current = (carousel.current + 1) % carousel.total;
+  updateCarousel(restaurantId);
+}
+
+function prevSlide(restaurantId) {
+  const carousel = carousels[restaurantId];
+  if (!carousel) return;
+  carousel.current = (carousel.current - 1 + carousel.total) % carousel.total;
+  updateCarousel(restaurantId);
+}
+
+function goToSlide(restaurantId, index) {
+  const carousel = carousels[restaurantId];
+  if (!carousel) return;
+  carousel.current = index;
+  updateCarousel(restaurantId);
+}
+
+if (typeof window !== "undefined") {
+  window.addEventListener("DOMContentLoaded", () => {
+    initCarousel(1, 2);
+    initCarousel(2, 4);
+    initCarousel(3, 8);
+    initCarousel(4, 4);
+    initCarousel(5, 3);
+    initCarousel(6, 1);
+  });
+}
+  </script>
