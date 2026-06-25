@@ -645,8 +645,8 @@ html, body {
 }
 .tg-icon { font-size: 24px; }
 
-/* ── PAGE 7: WELCOME ── */
-#p7 {
+/* ── PAGE 8: WELCOME ── */
+#p8 {
   background: var(--orange);
   background-image:
     radial-gradient(ellipse at 10% 20%, rgba(255,140,66,0.5) 0%, transparent 50%),
@@ -748,11 +748,11 @@ html, body {
 .p4-left { padding: 0; }
 .p4-right { padding: 0 28px 100px; }
 
-/* p7: stack vertically on mobile */
-#p7 { flex-direction: column; justify-content: center; text-align: center; padding: 40px 28px 100px; }
-.p7-left, .p7-right { flex: none; width: 100%; }
-.p7-left { align-items: center; padding: 0; }
-.p7-right { padding: 0; background: none; gap: 16px; }
+/* p8: stack vertically on mobile */
+#p8 { flex-direction: column; justify-content: center; text-align: center; padding: 40px 28px 100px; }
+.p8-left, .p8-right { flex: none; width: 100%; }
+.p8-left { align-items: center; padding: 0; }
+.p8-right { padding: 0; background: none; gap: 16px; }
 
 /* veterans: grid hidden, sidebar shown on mobile */
 .veterans-grid { display: none; }
@@ -822,8 +822,8 @@ html, body {
   #p0 .cover-logo { font-size: 58px; }
   #p0 .cover-subtitle { font-size: 26px; }
 
-  /* Page 7 on tablet: centered */
-  #p7 { padding: 60px 48px 80px; }
+  /* Page 8 on tablet: centered */
+  #p8 { padding: 60px 48px 80px; }
 }
 
 
@@ -1145,9 +1145,9 @@ html, body {
   #p6 .benefit-text small { font-size: 11px; }
   #p6 .tg-btn { font-size: 16px; padding: 15px 28px; border-radius: 14px; align-self: flex-start; }
 
-  /* ── PAGE 7: WELCOME ── */
-  #p7 { flex-direction: row; align-items: stretch; text-align: left; padding: 0; justify-content: unset; }
-  .p7-left {
+  /* ── PAGE 8: WELCOME ── */
+  #p8 { flex-direction: row; align-items: stretch; text-align: left; padding: 0; justify-content: unset; }
+  .p8-left {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -1155,7 +1155,7 @@ html, body {
     align-items: flex-start;
     padding: 80px 88px;
   }
-  .p7-right {
+  .p8-right {
     flex: 0 0 38%;
     display: flex;
     flex-direction: column;
@@ -1165,11 +1165,11 @@ html, body {
     background: rgba(0,0,0,0.22);
     gap: 20px;
   }
-  #p7 .welcome-star { font-size: 72px; margin-bottom: 20px; }
-  #p7 .welcome-title { font-size: clamp(40px, 4.2vw, 60px); line-height: 1.1; text-align: left; margin-bottom: 14px; }
-  #p7 .welcome-sub { font-size: 20px; text-align: left; margin-bottom: 0; }
-  #p7 .qr-block { width: 100%; margin-bottom: 0; }
-  #p7 .hr-contact { width: 100%; margin-bottom: 0; }
+  #p8 .welcome-star { font-size: 72px; margin-bottom: 20px; }
+  #p8 .welcome-title { font-size: clamp(40px, 4.2vw, 60px); line-height: 1.1; text-align: left; margin-bottom: 14px; }
+  #p8 .welcome-sub { font-size: 20px; text-align: left; margin-bottom: 0; }
+  #p8 .qr-block { width: 100%; margin-bottom: 0; }
+  #p8 .hr-contact { width: 100%; margin-bottom: 0; }
 }
 </style>
 
@@ -1187,7 +1187,7 @@ html, body {
 <!-- MOBILE NAV -->
 <nav class="nav-mobile">
   <button class="nav-btn" id="prevBtn" disabled>←</button>
-  <span class="page-counter" id="counter">1 / 8</span>
+  <span class="page-counter" id="counter">1 / 9</span>
   <button class="nav-btn" id="nextBtn">→</button>
 </nav>
 
@@ -2164,8 +2164,353 @@ if (typeof window !== "undefined") {
   });
 }
   </script>
-  <!-- PAGE 6: БОНУСЫ -->
+  <!-- PAGE 6: НАША БУДНЯ -->
   <section class="page slide-right" id="p6">
+    <div class="p1-hero-strip"></div>
+    <div class="section-header">
+      <div class="section-label">Жизнь вне работы</div>
+      <div class="section-title">Наша<br>будня</div>
+      <div class="accent-bar"></div>
+    </div>
+
+    <style>
+      .budni-container {
+        overflow-y: auto;
+        max-height: 70vh;
+        padding: 20px;
+      }
+
+      .budni-restaurant {
+        margin-bottom: 48px;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .budni-restaurant-title {
+        color: var(--orange-dark);
+        font-size: 18px;
+        font-weight: 700;
+        margin: 0 0 24px 0;
+        padding: 12px 20px;
+        background: linear-gradient(135deg, rgba(232, 83, 10, 0.15), rgba(232, 83, 10, 0.05));
+        border-left: 4px solid var(--orange);
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      }
+
+      .budni-carousel-wrapper {
+        position: relative;
+        padding: 0 65px;
+      }
+
+      .budni-carousel {
+        overflow: hidden;
+        border-radius: 12px;
+      }
+
+      .budni-carousel-track {
+        display: flex;
+        transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        gap: 16px;
+        padding: 4px;
+      }
+
+      .budni-photo {
+        width: calc((100% - 32px) / 3);
+        min-width: calc((100% - 32px) / 3);
+        max-width: calc((100% - 32px) / 3);
+        flex-shrink: 0;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 2px solid rgba(232, 83, 10, 0.08);
+        background: #f5f5f5;
+        box-sizing: border-box;
+      }
+
+      .budni-photo:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 16px 40px rgba(232, 83, 10, 0.2);
+        border-color: rgba(232, 83, 10, 0.3);
+      }
+
+      .budni-photo img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        display: block;
+      }
+
+      .budni-carousel-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: var(--orange);
+        color: #fff;
+        border: none;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        font-size: 26px;
+        cursor: pointer;
+        z-index: 10;
+        box-shadow: 0 6px 20px rgba(232, 83, 10, 0.35);
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+      }
+
+      .budni-carousel-btn:hover {
+        background: var(--orange-dark);
+        transform: translateY(-50%) scale(1.15);
+        box-shadow: 0 8px 28px rgba(232, 83, 10, 0.5);
+      }
+
+      .budni-carousel-btn:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+      }
+
+      .budni-carousel-btn.prev { left: 0; }
+      .budni-carousel-btn.next { right: 0; }
+
+      .budni-carousel-dots {
+        text-align: center;
+        margin-top: 16px;
+      }
+
+      .budni-carousel-dot {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #ddd;
+        margin: 0 6px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .budni-carousel-dot.active {
+        background: var(--orange);
+        transform: scale(1.4);
+        box-shadow: 0 2px 8px rgba(232, 83, 10, 0.5);
+      }
+
+      /* Адаптация для планшетов */
+      @media (max-width: 1024px) {
+        .budni-photo {
+          width: calc(50% - 8px);
+          min-width: calc(50% - 8px);
+          max-width: calc(50% - 8px);
+        }
+
+        .budni-carousel-wrapper {
+          padding: 0 60px;
+        }
+
+        .budni-carousel-track {
+          gap: 16px;
+        }
+
+        .budni-carousel-btn {
+          width: 44px;
+          height: 44px;
+          font-size: 22px;
+        }
+      }
+
+      /* Адаптация для мобильных */
+      @media (max-width: 768px) {
+        .budni-photo {
+          width: 100%;
+          min-width: 100%;
+          max-width: 100%;
+        }
+
+        .budni-carousel-wrapper {
+          padding: 0 50px;
+        }
+
+        .budni-carousel-track {
+          gap: 0;
+        }
+
+        .budni-photo img {
+          height: 250px;
+        }
+
+        .budni-carousel-btn {
+          width: 42px;
+          height: 42px;
+          font-size: 22px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .budni-carousel-wrapper {
+          padding: 0 44px;
+        }
+
+        .budni-photo img {
+          height: 200px;
+        }
+
+        .budni-carousel-btn {
+          width: 38px;
+          height: 38px;
+          font-size: 20px;
+        }
+      }
+    </style>
+
+    <div class="budni-container">
+
+      <!-- Ресторан Кутузова 1/5 -->
+      <div class="budni-restaurant">
+        <h2 class="budni-restaurant-title">🏠 Ресторан Кутузова 1/5</h2>
+        <div class="budni-carousel-wrapper">
+          <button class="budni-carousel-btn prev" onclick="budniCarouselPrev(0)">‹</button>
+          <div class="budni-carousel">
+            <div class="budni-carousel-track" id="budni-track-0">
+              <div class="budni-photo"><img src="photos/budni/ресторан Кутузова 15/2461d4b4-0cc2-4d99-a2fa-2c0642de92e5.jfif" alt="Кутузова 1"></div>
+              <div class="budni-photo"><img src="photos/budni/ресторан Кутузова 15/2aefcddb-66a1-4d73-ae3f-386a13fdd8c7.jfif" alt="Кутузова 2"></div>
+              <div class="budni-photo"><img src="photos/budni/ресторан Кутузова 15/3d003f3d-2e3c-4497-b807-6be90e21225d.jfif" alt="Кутузова 3"></div>
+              <div class="budni-photo"><img src="photos/budni/ресторан Кутузова 15/5bd4eca3-fdd1-4130-a92f-c925ebc37815.jfif" alt="Кутузова 4"></div>
+              <div class="budni-photo"><img src="photos/budni/ресторан Кутузова 15/70f151fd-656c-4a88-80c3-d5688159d438.jfif" alt="Кутузова 5"></div>
+              <div class="budni-photo"><img src="photos/budni/ресторан Кутузова 15/a3a7d575-75f5-4a7b-bb30-47f1c5a9270e.jfif" alt="Кутузова 6"></div>
+            </div>
+          </div>
+          <button class="budni-carousel-btn next" onclick="budniCarouselNext(0)">›</button>
+        </div>
+        <div class="budni-carousel-dots" id="budni-dots-0"></div>
+      </div>
+
+      <!-- Ресторан Судостроительная 52А -->
+      <div class="budni-restaurant">
+        <h2 class="budni-restaurant-title">🏠 Ресторан Судостроительная 52А</h2>
+        <div class="budni-carousel-wrapper">
+          <button class="budni-carousel-btn prev" onclick="budniCarouselPrev(1)">‹</button>
+          <div class="budni-carousel">
+            <div class="budni-carousel-track" id="budni-track-1">
+              <div class="budni-photo"><img src="photos/budni/ресторан Судостроительная 52А/0355e112-d9f4-4398-a90e-4558b39eefb1.jfif" alt="Судостроительная 1"></div>
+              <div class="budni-photo"><img src="photos/budni/ресторан Судостроительная 52А/23e3795b-8e53-42cb-8c8c-f5481302a457.jfif" alt="Судостроительная 2"></div>
+              <div class="budni-photo"><img src="photos/budni/ресторан Судостроительная 52А/5b29a633-d684-4910-b7b1-777dbadde9af.jfif" alt="Судостроительная 3"></div>
+              <div class="budni-photo"><img src="photos/budni/ресторан Судостроительная 52А/68e1e0bb-5269-47c3-8d3a-4cc08a39eb9b.jfif" alt="Судостроительная 4"></div>
+              <div class="budni-photo"><img src="photos/budni/ресторан Судостроительная 52А/7dec2b57-08f9-4cab-b6e4-1d92b17d005e.jfif" alt="Судостроительная 5"></div>
+            </div>
+          </div>
+          <button class="budni-carousel-btn next" onclick="budniCarouselNext(1)">›</button>
+        </div>
+        <div class="budni-carousel-dots" id="budni-dots-1"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <script>
+// Карусели будней
+const budniCarousels = [];
+const budniPerView = { desktop: 3, tablet: 2, mobile: 1 };
+
+function getBudniPerView() {
+  const width = window.innerWidth;
+  if (width <= 768) return budniPerView.mobile;
+  if (width <= 1024) return budniPerView.tablet;
+  return budniPerView.desktop;
+}
+
+function initBudniCarousel(index) {
+  const track = document.getElementById(`budni-track-${index}`);
+  const dotsContainer = document.getElementById(`budni-dots-${index}`);
+  const photos = track.querySelectorAll('.budni-photo');
+  const totalPhotos = photos.length;
+
+  budniCarousels[index] = {
+    currentSlide: 0,
+    totalPhotos: totalPhotos,
+    perView: getBudniPerView()
+  };
+
+  // Создаём индикаторы
+  const maxSlide = Math.ceil(totalPhotos / budniCarousels[index].perView);
+  dotsContainer.innerHTML = '';
+  for (let i = 0; i < maxSlide; i++) {
+    const dot = document.createElement('span');
+    dot.className = `budni-carousel-dot ${i === 0 ? 'active' : ''}`;
+    dot.onclick = () => budniGoToSlide(index, i);
+    dotsContainer.appendChild(dot);
+  }
+
+  updateBudniCarousel(index);
+}
+
+function updateBudniCarousel(index) {
+  const carousel = budniCarousels[index];
+  const track = document.getElementById(`budni-track-${index}`);
+  const dots = document.querySelectorAll(`#budni-dots-${index} .budni-carousel-dot`);
+
+  const slideWidth = 100 / carousel.perView;
+  const offset = -(carousel.currentSlide * slideWidth);
+  track.style.transform = `translateX(${offset}%)`;
+
+  // Обновляем точки
+  dots.forEach((dot, i) => {
+    dot.classList.toggle('active', i === carousel.currentSlide);
+  });
+
+  // Обновляем кнопки
+  const prevBtn = track.closest('.budni-carousel-wrapper').querySelector('.prev');
+  const nextBtn = track.closest('.budni-carousel-wrapper').querySelector('.next');
+  const maxSlide = Math.ceil(carousel.totalPhotos / carousel.perView) - 1;
+
+  prevBtn.disabled = carousel.currentSlide === 0;
+  nextBtn.disabled = carousel.currentSlide >= maxSlide;
+}
+
+function budniCarouselNext(index) {
+  const carousel = budniCarousels[index];
+  const maxSlide = Math.ceil(carousel.totalPhotos / carousel.perView) - 1;
+  if (carousel.currentSlide < maxSlide) {
+    carousel.currentSlide++;
+    updateBudniCarousel(index);
+  }
+}
+
+function budniCarouselPrev(index) {
+  if (budniCarousels[index].currentSlide > 0) {
+    budniCarousels[index].currentSlide--;
+    updateBudniCarousel(index);
+  }
+}
+
+function budniGoToSlide(index, slide) {
+  budniCarousels[index].currentSlide = slide;
+  updateBudniCarousel(index);
+}
+
+// Пересчёт при изменении размера окна
+window.addEventListener('resize', () => {
+  budniCarousels.forEach((carousel, index) => {
+    carousel.perView = getBudniPerView();
+    carousel.currentSlide = 0;
+    initBudniCarousel(index);
+  });
+});
+
+// Инициализация при загрузке
+if (typeof window !== 'undefined') {
+  window.addEventListener('DOMContentLoaded', () => {
+    initBudniCarousel(0); // Кутузова
+    initBudniCarousel(1); // Судостроительная
+  });
+}
+  </script>
+  <!-- PAGE 7: БОНУСЫ -->
+  <section class="page slide-right" id="p7">
     <div class="section-header">
       <div class="section-label">Это всё для тебя</div>
       <div class="section-title">У нас<br>для тебя</div>
@@ -2515,14 +2860,14 @@ if (typeof window !== 'undefined') {
   window.addEventListener('DOMContentLoaded', initBenefitsCarousel);
 }
   </script>
-  <!-- PAGE 7: WELCOME + QR -->
-  <section class="page slide-right" id="p7">
-    <div class="p7-left">
+  <!-- PAGE 8: WELCOME + QR -->
+  <section class="page slide-right" id="p8">
+    <div class="p8-left">
       <span class="welcome-star">⭐</span>
       <div class="welcome-title">Помни,<br>в Грильнице<br>только лучшие!</div>
       <div class="welcome-sub">А ты уже один из нас 🔥</div>
     </div>
-    <div class="p7-right">
+    <div class="p8-right">
       <div class="qr-block">
         <div class="qr-label">QR-код на эту книгу</div>
         <div id="qrcode"></div>
